@@ -17,6 +17,8 @@ import (
 	"google.golang.org/grpc/reflection"
 
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/apiserver/config"
+	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/apiserver/store"
+	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/apiserver/store/mysql"
 
 	genericoptions "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/options"
 	genericapiserver "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/server"
