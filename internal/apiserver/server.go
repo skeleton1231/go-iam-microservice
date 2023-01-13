@@ -10,24 +10,17 @@ import (
 	"log"
 
 	pb "github.com/marmotedu/api/proto/apiserver/v1"
+	"github.com/marmotedu/iam/pkg/shutdown"
+	"github.com/marmotedu/iam/pkg/shutdown/shutdownmanagers/posixsignal"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/reflection"
 
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/apiserver/config"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/pkg/shutdown"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/pkg/shutdown/shutdownmanagers/posixsignal"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/pkg/storage"
 
-	//cachev1 "github.com/marmotedu/iam/internal/apiserver/controller/v1/cache"
-	//"github.com/marmotedu/iam/internal/apiserver/store"
-	//"github.com/marmotedu/iam/internal/apiserver/store/mysql"
-	//"github.com/marmotedu/iam/pkg/log"
-	//"github.com/marmotedu/iam/pkg/shutdown"
-	//"github.com/marmotedu/iam/pkg/shutdown/shutdownmanagers/posixsignal"
-	//"github.com/marmotedu/iam/pkg/storage"
 	genericoptions "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/options"
 	genericapiserver "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/server"
+	"github.com/skeleton1231/go-gin-restful-api-boilerplate/pkg/storage"
 )
 
 type apiServer struct {
