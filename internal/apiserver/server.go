@@ -79,6 +79,7 @@ func createAPIServer(cfg *config.Config) (*apiServer, error) {
 }
 
 func (s *apiServer) PrepareRun() preparedAPIServer {
+
 	initRouter(s.genericAPIServer.Engine)
 
 	s.initRedisStore()
