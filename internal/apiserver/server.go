@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"log"
 
-	pb "github.com/marmotedu/api/proto/apiserver/v1"
+	//pb "github.com/marmotedu/api/proto/apiserver/v1"
 	"github.com/marmotedu/iam/pkg/shutdown"
 	"github.com/marmotedu/iam/pkg/shutdown/shutdownmanagers/posixsignal"
 	"google.golang.org/grpc"
@@ -134,12 +134,12 @@ func (c *completedExtraConfig) New() (*grpcAPIServer, error) {
 	storeIns, _ := mysql.GetMySQLFactoryOr(c.mysqlOptions)
 	// storeIns, _ := etcd.GetEtcdFactoryOr(c.etcdOptions, nil)
 	store.SetClient(storeIns)
-	cacheIns, err := cachev1.GetCacheInsOr(storeIns)
+	//cacheIns, err := cachev1.GetCacheInsOr(storeIns)
 	if err != nil {
 		log.Fatalf("Failed to get cache instance: %s", err.Error())
 	}
 
-	pb.RegisterCacheServer(grpcServer, cacheIns)
+	//pb.RegisterCacheServer(grpcServer, cacheIns)
 
 	reflection.Register(grpcServer)
 
