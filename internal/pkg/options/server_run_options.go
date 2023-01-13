@@ -3,7 +3,10 @@
 // license that can be found in the LICENSE file.
 package options
 
-import "github.com/spf13/pflag"
+import (
+	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/server"
+	"github.com/spf13/pflag"
+)
 
 // ServerRunOptions contains the options while running a generic api server.
 type ServerRunOptions struct {
