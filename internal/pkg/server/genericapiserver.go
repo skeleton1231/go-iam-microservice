@@ -19,8 +19,8 @@ import (
 	ginprometheus "github.com/zsais/go-gin-prometheus"
 	"golang.org/x/sync/errgroup"
 
-	//"github.com/marmotedu/iam/internal/pkg/middleware"
 	"github.com/marmotedu/iam/pkg/log"
+	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/middleware"
 )
 
 // GenericAPIServer contains state for an iam api server.
