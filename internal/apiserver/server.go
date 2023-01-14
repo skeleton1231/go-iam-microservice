@@ -133,7 +133,7 @@ func (c *completedExtraConfig) New() (*grpcAPIServer, error) {
 	grpcServer := grpc.NewServer(opts...)
 
 	storeIns, _ := mysql.GetMySQLFactoryOr(c.mysqlOptions)
-	// storeIns, _ := etcd.GetEtcdFactoryOr(c.etcdOptions, nil)
+	//storeIns, _ := etcd.GetEtcdFactoryOr(c.etcdOptions, nil)
 	store.SetClient(storeIns)
 	//cacheIns, err := cachev1.GetCacheInsOr(storeIns)
 	if err != nil {
