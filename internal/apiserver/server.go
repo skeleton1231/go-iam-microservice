@@ -10,8 +10,7 @@ import (
 	"log"
 
 	//pb "github.com/marmotedu/api/proto/apiserver/v1"
-	"github.com/marmotedu/iam/pkg/shutdown"
-	"github.com/marmotedu/iam/pkg/shutdown/shutdownmanagers/posixsignal"
+
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/reflection"
@@ -19,6 +18,8 @@ import (
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/apiserver/config"
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/apiserver/store"
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/apiserver/store/mysql"
+	"github.com/skeleton1231/go-gin-restful-api-boilerplate/pkg/shutdown"
+	"github.com/skeleton1231/go-gin-restful-api-boilerplate/pkg/shutdown/shutdownmanagers/posixsignal"
 
 	genericoptions "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/options"
 	genericapiserver "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/server"
