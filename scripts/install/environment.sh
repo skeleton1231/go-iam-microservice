@@ -13,12 +13,13 @@ IAM_ROOT=$(dirname "${BASH_SOURCE[0]}")/../..
 LOCAL_OUTPUT_ROOT="${IAM_ROOT}/${OUT_DIR:-_output}"
 
 # 设置统一的密码，方便记忆
-readonly PASSWORD=${PASSWORD:-'iam59!z$'}
+readonly PASSWORD=${PASSWORD:-'MyN3wP4ssw0rd'}
+readonly ROOTPASSWORD=${ROOTPASSWORD:-'wave212188'}
 
 # Linux系统 going 用户
-readonly LINUX_USERNAME=${LINUX_USERNAME:-going}
+readonly LINUX_USERNAME=${LINUX_USERNAME:-root}
 # Linux root & going 用户密码
-readonly LINUX_PASSWORD=${LINUX_PASSWORD:-${PASSWORD}}
+readonly LINUX_PASSWORD=${LINUX_PASSWORD:-${ROOTPASSWORD}}
 
 # 设置安装目录
 readonly INSTALL_DIR=${INSTALL_DIR:-/tmp/installation}
@@ -48,10 +49,10 @@ readonly MONGO_USERNAME=${MONGO_USERNAME:-iam} # MongoDB 用户名
 readonly MONGO_PASSWORD=${MONGO_PASSWORD:-${PASSWORD}} # MongoDB 密码
 
 # iam 配置
-readonly IAM_DATA_DIR=${IAM_DATA_DIR:-/data/iam} # iam 各组件数据目录
-readonly IAM_INSTALL_DIR=${IAM_INSTALL_DIR:-/opt/iam} # iam 安装文件存放目录
-readonly IAM_CONFIG_DIR=${IAM_CONFIG_DIR:-/etc/iam} # iam 配置文件存放目录
-readonly IAM_LOG_DIR=${IAM_LOG_DIR:-/var/log/iam} # iam 日志文件存放目录
+readonly IAM_DATA_DIR=${IAM_DATA_DIR:-/$HOME/iam} # iam 各组件数据目录
+readonly IAM_INSTALL_DIR=${IAM_INSTALL_DIR:-/$HOME/iam/opt/} # iam 安装文件存放目录
+readonly IAM_CONFIG_DIR=${IAM_CONFIG_DIR:-/$HOME/iam/etc/} # iam 配置文件存放目录
+readonly IAM_LOG_DIR=${IAM_LOG_DIR:-/$HOME/iam/log/} # iam 日志文件存放目录
 readonly CA_FILE=${CA_FILE:-${IAM_CONFIG_DIR}/cert/ca.pem} # CA
 
 # iam-apiserver 配置
