@@ -68,6 +68,7 @@ require (
 )
 
 require (
+	github.com/AlekSi/pointer v1.2.0
 	github.com/buger/jsonparser v1.1.1
 	github.com/fatih/color v1.13.0
 	github.com/gin-contrib/sse v0.1.0 // indirect

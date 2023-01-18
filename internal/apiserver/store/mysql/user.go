@@ -12,9 +12,8 @@ import (
 	metav1 "github.com/marmotedu/component-base/pkg/meta/v1"
 	"github.com/marmotedu/errors"
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/code"
+	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/util/gormutil"
 	gorm "gorm.io/gorm"
-
-	"github.com/marmotedu/iam/internal/pkg/util/gormutil"
 )
 
 type users struct {
