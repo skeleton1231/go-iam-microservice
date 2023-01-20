@@ -24,7 +24,7 @@ type datastore struct {
 	// db *gorm.DB
 }
 
-/*func (ds *datastore) Users() store.UserStore {
+func (ds *datastore) Users() store.UserStore {
 	return newUsers(ds)
 }
 
@@ -38,7 +38,7 @@ func (ds *datastore) Policies() store.PolicyStore {
 
 func (ds *datastore) PolicyAudits() store.PolicyAuditStore {
 	return newPolicyAudits(ds)
-}*/
+}
 
 func (ds *datastore) Close() error {
 	db, err := ds.db.DB()
