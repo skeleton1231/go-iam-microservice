@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"log"
 
-	//pb "github.com/marmotedu/api/proto/apiserver/v1"
+	pb "github.com/marmotedu/api/proto/apiserver/v1"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
@@ -24,6 +24,8 @@ import (
 	genericoptions "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/options"
 	genericapiserver "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/server"
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/pkg/storage"
+
+	cachev1 "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/apiserver/controller/v1/cache"
 )
 
 type apiServer struct {
@@ -136,12 +138,12 @@ func (c *completedExtraConfig) New() (*grpcAPIServer, error) {
 	storeIns, _ := mysql.GetMySQLFactoryOr(c.mysqlOptions)
 	//storeIns, _ := etcd.GetEtcdFactoryOr(c.etcdOptions, nil)
 	store.SetClient(storeIns)
-	//cacheIns, err := cachev1.GetCacheInsOr(storeIns)
+	cacheIns, err := cachev1.GetCacheInsOr(storeIns)
 	if err != nil {
 		log.Fatalf("Failed to get cache instance: %s", err.Error())
 	}
 
-	//pb.RegisterCacheServer(grpcServer, cacheIns)
+	pb.RegisterCacheServer(grpcServer, cacheIns)
 
 	reflection.Register(grpcServer)
 
