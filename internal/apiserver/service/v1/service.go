@@ -11,6 +11,8 @@ import "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/apiserve
 // Service defines functions used to return resource interface.
 type Service interface {
 	Users() UserSrv
+	Secrets() SecretSrv
+	Policies() PolicySrv
 }
 
 type service struct {

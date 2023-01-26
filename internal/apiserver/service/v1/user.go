@@ -2,10 +2,14 @@ package v1
 
 import (
 	"context"
+	"fmt"
 
 	v1 "github.com/marmotedu/api/apiserver/v1"
 	metav1 "github.com/marmotedu/component-base/pkg/meta/v1"
+	"github.com/marmotedu/errors"
+	"github.com/marmotedu/iam/pkg/log"
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/apiserver/store"
+	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/code"
 )
 
 // UserSrv defines functions used to handle user request.
@@ -32,6 +36,13 @@ func newUsers(srv *service) *userService {
 
 // List returns user list in the storage. This function has a good performance.
 func (u *userService) List(ctx context.Context, opts metav1.ListOptions) (*v1.UserList, error) {
+	user, err := u.store.Users().List(ctx, opts)
+	if err != nil {
+		log.L(ctx).Errorf("list users from storage failed: %s", err.Error())
+
+		return nil, errors.WithCode(code.ErrDatabase, err.Error())
+	}
+	fmt.Println(user)
 
 	return nil, nil
 }
