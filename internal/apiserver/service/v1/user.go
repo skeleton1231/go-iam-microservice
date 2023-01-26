@@ -2,6 +2,7 @@ package v1
 
 import (
 	"context"
+	"regexp"
 	"sync"
 
 	v1 "github.com/marmotedu/api/apiserver/v1"
@@ -138,28 +139,58 @@ func (u *userService) ListWithBadPerformance(ctx context.Context, opts metav1.Li
 
 func (u *userService) Create(ctx context.Context, user *v1.User, opts metav1.CreateOptions) error {
 
+	if err := u.store.Users().Create(ctx, user, opts); err != nil {
+		if match, _ := regexp.MatchString("Duplicate entry '.*' for key 'idx_name'", err.Error()); match {
+			return errors.WithCode(code.ErrUserAlreadyExist, err.Error())
+		}
+
+		return errors.WithCode(code.ErrDatabase, err.Error())
+	}
+
 	return nil
 }
 
 func (u *userService) DeleteCollection(ctx context.Context, usernames []string, opts metav1.DeleteOptions) error {
+
+	if err := u.store.Users().DeleteCollection(ctx, usernames, opts); err != nil {
+		return errors.WithCode(code.ErrDatabase, err.Error())
+	}
 
 	return nil
 }
 
 func (u *userService) Delete(ctx context.Context, username string, opts metav1.DeleteOptions) error {
 
+	if err := u.store.Users().Delete(ctx, username, opts); err != nil {
+		return err
+	}
+
 	return nil
 }
 
 func (u *userService) Get(ctx context.Context, username string, opts metav1.GetOptions) (*v1.User, error) {
 
-	return nil, nil
+	user, err := u.store.Users().Get(ctx, username, opts)
+	if err != nil {
+		return nil, err
+	}
+
+	return user, nil
 }
 
 func (u *userService) Update(ctx context.Context, user *v1.User, opts metav1.UpdateOptions) error {
+	if err := u.store.Users().Update(ctx, user, opts); err != nil {
+		return errors.WithCode(code.ErrDatabase, err.Error())
+	}
+
 	return nil
 }
 
 func (u *userService) ChangePassword(ctx context.Context, user *v1.User) error {
+	// Save changed fields.
+	if err := u.store.Users().Update(ctx, user, metav1.UpdateOptions{}); err != nil {
+		return errors.WithCode(code.ErrDatabase, err.Error())
+	}
+
 	return nil
 }
