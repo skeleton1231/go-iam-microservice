@@ -105,7 +105,35 @@ func (u *userService) List(ctx context.Context, opts metav1.ListOptions) (*v1.Us
 // ListWithBadPerformance returns user list in the storage. This function has a bad performance.
 func (u *userService) ListWithBadPerformance(ctx context.Context, opts metav1.ListOptions) (*v1.UserList, error) {
 
-	return nil, nil
+	users, err := u.store.Users().List(ctx, opts)
+	if err != nil {
+		log.L(ctx).Errorf("list users from storage failed: %s", err.Error())
+
+		return nil, errors.WithCode(code.ErrDatabase, err.Error())
+	}
+
+	infos := make([]*v1.User, 0)
+	for _, user := range users.Items {
+		policies, err := u.store.Policies().List(ctx, user.Name, metav1.ListOptions{})
+		if err != nil {
+			return nil, errors.WithCode(code.ErrDatabase, err.Error())
+		}
+
+		infos = append(infos, &v1.User{
+			ObjectMeta: metav1.ObjectMeta{
+				ID:        user.ID,
+				Name:      user.Name,
+				CreatedAt: user.CreatedAt,
+				UpdatedAt: user.UpdatedAt,
+			},
+			Nickname:    user.Nickname,
+			Email:       user.Email,
+			Phone:       user.Phone,
+			TotalPolicy: policies.TotalCount,
+		})
+	}
+
+	return &v1.UserList{ListMeta: users.ListMeta, Items: infos}, nil
 }
 
 func (u *userService) Create(ctx context.Context, user *v1.User, opts metav1.CreateOptions) error {
