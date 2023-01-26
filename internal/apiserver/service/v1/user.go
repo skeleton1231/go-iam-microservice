@@ -2,7 +2,7 @@ package v1
 
 import (
 	"context"
-	"fmt"
+	"sync"
 
 	v1 "github.com/marmotedu/api/apiserver/v1"
 	metav1 "github.com/marmotedu/component-base/pkg/meta/v1"
@@ -36,15 +36,70 @@ func newUsers(srv *service) *userService {
 
 // List returns user list in the storage. This function has a good performance.
 func (u *userService) List(ctx context.Context, opts metav1.ListOptions) (*v1.UserList, error) {
-	user, err := u.store.Users().List(ctx, opts)
+	users, err := u.store.Users().List(ctx, opts)
 	if err != nil {
 		log.L(ctx).Errorf("list users from storage failed: %s", err.Error())
 
 		return nil, errors.WithCode(code.ErrDatabase, err.Error())
 	}
-	fmt.Println(user)
+	wg := sync.WaitGroup{}
+	errChan := make(chan error, 1)
+	finished := make(chan bool, 1)
 
-	return nil, nil
+	var m sync.Map
+
+	for _, user := range users.Items {
+		wg.Add(1)
+
+		go func(user *v1.User) {
+			defer wg.Done()
+
+			policies, err := u.store.Policies().List(ctx, user.Name, metav1.ListOptions{}) // metav1.ListOptions{}
+			if err != nil {
+				errChan <- errors.WithCode(code.ErrDatabase, err.Error())
+
+				return
+			}
+
+			m.Store(
+				user.ID,
+				&v1.User{
+					ObjectMeta: metav1.ObjectMeta{
+						ID:         user.ID,
+						InstanceID: user.InstanceID,
+						Name:       user.Name,
+						Extend:     user.Extend,
+						CreatedAt:  user.CreatedAt,
+						UpdatedAt:  user.UpdatedAt,
+					}, Nickname: user.Nickname,
+					Email:       user.Email,
+					Phone:       user.Phone,
+					TotalPolicy: policies.TotalCount,
+					LoginedAt:   user.LoginedAt,
+				})
+		}(user)
+	}
+
+	go func() {
+		wg.Wait()
+		close(finished)
+	}()
+
+	select {
+	case <-finished:
+	case err := <-errChan:
+		return nil, err
+	}
+
+	infos := make([]*v1.User, 0, len(users.Items))
+	for _, user := range users.Items {
+		info, _ := m.Load(user.ID)
+		infos = append(infos, info.(*v1.User))
+	}
+
+	log.L(ctx).Debugf("get %d users from backend storage.", len(infos))
+
+	return &v1.UserList{ListMeta: users.ListMeta, Items: infos}, nil
 }
 
 // ListWithBadPerformance returns user list in the storage. This function has a bad performance.
