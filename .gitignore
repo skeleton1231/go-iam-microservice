@@ -348,6 +348,7 @@ dist
 .note.md
 
 # config files, may contain sensitive information
+.csr
 
 # project root
 sripts/
