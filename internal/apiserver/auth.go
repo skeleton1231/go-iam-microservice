@@ -12,6 +12,7 @@ import (
 	jwt "github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"
 	metav1 "github.com/marmotedu/component-base/pkg/meta/v1"
+	"github.com/marmotedu/iam/pkg/log"
 	"github.com/spf13/viper"
 
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/apiserver/store"
@@ -87,4 +88,16 @@ func newJWTAuth() middleware.AuthStrategy {
 	})
 
 	return auth.NewJWTStrategy(*ginjwt)
+}
+
+func authorizator() func(data interface{}, c *gin.Context) bool {
+	return func(data interface{}, c *gin.Context) bool {
+		if v, ok := data.(string); ok {
+			log.L(c).Infof("user `%s` is authenticated.", v)
+
+			return true
+		}
+
+		return false
+	}
 }
