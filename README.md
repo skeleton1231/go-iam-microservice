@@ -1,94 +1,76 @@
-# IAM - 身份识别与访问管理系统
+# IAM - Identity and Access Management System
 
-IAM = **I**dentity and **A**ccess **M**anagement
+IAM = **I**dentity and **A**access **M**management
 
-IAM 是一个基于 Go 语言开发的身份识别与访问管理系统，用于对资源访问进行授权。**最新稳定版本为：v1.6.2，建议基于稳定版安装测试**。
+IAM is an identity and access management system developed based on Go language, which is used to authorize resource access. **The latest stable version is: v1.6.2, it is recommended to install and test based on the stable version**.
 
-这里需要注意：
-- 如果你是极客时间《Go 语言项目开发实战》专栏的读者，请使用 v1.1.0 版本（tag）
-- 如果你是图书《从零构建企业级 Go 项目》的读者，请使用 v1.6.t2 版本（tag）
+Note here:
+- If you are a reader of the "Go language project development practice" column of Geek Time, please use the v1.1.0 version (tag)
+- If you are a reader of the book "Building an Enterprise Go Project from Scratch", please use the v1.6.t2 version (tag)
 
-> 更详细的版本映射请参考：[版本映射](./docs/guide/zh-CN/version_map.md)
 
-IAM 同时也具有以下能力：
+IAM also has the following capabilities:
 
-1. 配合极客时间专栏 **《[Go 语言项目开发实战](https://time.geekbang.org/column/intro/100079601?tab=intro)》**，讲解如何用 Go 做企业级应用的开发，是该项目的理论课程，包含了项目各个知识点和构建思路的讲解，也会包含我的一线研发经验和建议。
+1. Cooperate with the Geekbang Time column **《[Go language project development practice](https://time.geekbang.org/column/intro/100079601?tab=intro)》**, explain how to use Go to do enterprise-level applications The development of the project is the theoretical course of the project, which includes the explanation of various knowledge points and construction ideas of the project, as well as my first-line research and development experience and suggestions.
 
-2. 作为一个开发脚手架，供开发者克隆后二次开发，快速构建自己的应用。
+2. As a development scaffolding, developers can clone and develop their own applications quickly.
 
-IAM 项目会长期维护、定期更新，**欢迎兄弟们 Star & Contribute**
+The IAM project will be maintained for a long time and updated regularly, **welcome brothers Star & Contribute**
 
-## 功能特性
+## Features
 
-本项目用到了Go企业开发的大部分核心技能点，见下图：
+This project uses most of the core skills developed by Go enterprises, as shown in the figure below:
 
-![技术思维导图](./docs/images/技术思维导图.png)
 
-更多请参考：[marmotedu/gocollect](https://github.com/marmotedu/gocollect)
+For more information, please refer to: [marmotedu/gocollect](https://github.com/marmotedu/gocollect)
 
-## 软件架构
+## Software Architecture
 
-![IAM架构](./docs/images/IAM架构.png)
+## Quick start
 
-架构解析见：[IAM 架构 & 能力说明](./docs/guide/zh-CN/installation/installation-architecture.md)
+### Dependency Check
 
-## 快速开始
+### Rapid Deployment
 
-### 依赖检查
+### Construct
 
-1. 服务器能访问外网
+If you need to recompile the IAM project, you can perform the following 2 steps:
 
-2. 操作系统：CentOS Linux 8.x (64-bit)
-
-> 本安装脚本基于 CentOS 8.2 安装，建议你选择 CentOS 8.x 系统。其它Linux发行版、macOS也能安装，不过需要手动安装。
-
-### 快速部署
-
-快速部署请参考：[IAM 部署指南](docs/guide/zh-CN/installation/README.md#快速部署)
-
-> IAM 项目还提供了更详细的部署文档，请参考：[手把手教你部署IAM系统](docs/guide/zh-CN/installation/installation-procedures.md)
-
-### 构建
-
-如果你需要重新编译IAM项目，可以执行以下 2 步：
-
-1. 克隆源码
+1. Clone the source code
 
 ```bash
 $ git clone https://github.com/marmotedu/iam $GOPATH/src/github.com/marmotedu/iam
 ```
 
-2. 编译
+2. Compile
 
 ```bash
 $ cd $GOPATH/src/github.com/marmotedu/iam
 $ make
 ```
 
-构建后的二进制文件保存在 `_output/platforms/linux/amd64/` 目录下。
+The built binaries are stored in the `_output/platforms/linux/amd64/` directory.
 
-## 使用指南
+## user's guidance
 
-[IAM Documentation](docs/guide/zh-CN)
 
-## 如何贡献
+## How to contribute
 
-欢迎贡献代码，贡献流程可以参考 [developer's documentation](docs/devel/zh-CN/development.md)。
 
-## 社区
+## Community
 
 You are encouraged to communicate most things via [GitHub issues](https://github.com/marmotedu/iam/issues/new/choose) or pull requests.
 
-## 关于作者
+## About the author
 
 - Lingfei Kong <colin404@foxmail.com>
 
-为了方便交流，我建了微信群，可以加我 **微信：nightskong**，拉你入群，方便交流。
+In order to facilitate communication, I have created a WeChat group, you can add me **WeChat: nightskong**, and pull you into the group to facilitate communication.
 
-## 谁在用
+## who is using
 
-如果你有项目在使用iam系统模板，也欢迎联系作者，加入使用案例。
+If you have a project using the iam system template, you are welcome to contact the author and join the use case.
 
-## 许可证
+## license
 
 IAM is licensed under the MIT. See [LICENSE](LICENSE) for the full license text.
