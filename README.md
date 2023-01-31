@@ -2,7 +2,7 @@
 
 IAM = **I**dentity and **A**access **M**management
 
-IAM is an identity and access management system developed based on Go language, which is used to authorize resource access. **The latest stable version is: v1.6.2, it is recommended to install and test based on the stable version**.
+IAM is an identity and access management system developed based on Go language, which is used to authorize resource access.
 
 Note here:
 - If you are a reader of the "Go language project development practice" column of Geek Time, please use the v1.1.0 version (tag)
@@ -11,7 +11,7 @@ Note here:
 
 IAM also has the following capabilities:
 
-1. Cooperate with the Geekbang Time column **《[Go language project development practice](https://time.geekbang.org/column/intro/100079601?tab=intro)》**, explain how to use Go to do enterprise-level applications The development of the project is the theoretical course of the project, which includes the explanation of various knowledge points and construction ideas of the project, as well as my first-line research and development experience and suggestions.
+1. Cooperate with the Geekbang Time column **《[Go language project development practice(Go 语言项目开发实战)](https://time.geekbang.org/column/intro/100079601?tab=intro)》**, explain how to use Go to do enterprise-level applications The development of the project is the theoretical course of the project, which includes the explanation of various knowledge points and construction ideas of the project, as well as my first-line research and development experience and suggestions.
 
 2. As a development scaffolding, developers can clone and develop their own applications quickly.
 
