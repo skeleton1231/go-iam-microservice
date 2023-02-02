@@ -1,7 +1,0 @@
-package apiserver
-
-import pb "github.com/marmotedu/api/proto/apiserver/v1"
-
-type datastore struct {
-	cli pb.CacheClient
-}
