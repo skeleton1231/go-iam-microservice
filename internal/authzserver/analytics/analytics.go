@@ -1,6 +1,12 @@
 package analytics
 
-import "time"
+import (
+	"sync"
+	"time"
+
+	"github.com/marmotedu/log"
+	"github.com/skeleton1231/go-gin-restful-api-boilerplate/pkg/storage"
+)
 
 const analyticsKeyName = "iam-system-analytics"
 
@@ -31,4 +37,37 @@ func (a *AnalyticsRecord) SetExpiry(expiresInSeconds int64) {
 	t := time.Now()
 	t2 := t.Add(expiry)
 	a.ExpireAt = t2
+}
+
+var analytics *Analytics
+
+// Analytics will record analytics data to a redis back end as defined in the Config object.
+type Analytics struct {
+	store                      storage.AnalyticsHandler
+	poolSize                   int
+	recordsChan                chan *AnalyticsRecord
+	workerBufferSize           uint64
+	recordsBufferFlushInterval uint64
+	shouldStop                 uint32
+	poolWg                     sync.WaitGroup
+}
+
+// NewAnalytics returns a new analytics instance.
+func NewAnalytics(options *AnalyticsOptions, store storage.AnalyticsHandler) *Analytics {
+	ps := options.PoolSize
+	recordsBufferSize := options.RecordsBufferSize
+	workerBufferSize := recordsBufferSize / uint64(ps)
+	log.Debug("Analytics pool worker buffer size", log.Uint64("workerBufferSize", workerBufferSize))
+
+	recordsChan := make(chan *AnalyticsRecord, recordsBufferSize)
+
+	analytics = &Analytics{
+		store:                      store,
+		poolSize:                   ps,
+		recordsChan:                recordsChan,
+		workerBufferSize:           workerBufferSize,
+		recordsBufferFlushInterval: options.FlushInterval,
+	}
+
+	return analytics
 }
