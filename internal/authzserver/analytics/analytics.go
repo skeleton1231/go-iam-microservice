@@ -7,6 +7,7 @@ import (
 
 	"github.com/marmotedu/log"
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/pkg/storage"
+	"github.com/vmihailenco/msgpack"
 )
 
 const analyticsKeyName = "iam-system-analytics"
@@ -118,6 +119,50 @@ func (r *Analytics) RecordHit(record *AnalyticsRecord) error {
 }
 
 func (r *Analytics) recordWorker() {
+
+	// this is buffer to send one pipelined command to redis
+	// use r.recordsBufferSize as cap to reduce slice re-allocations
+	recordsBuffer := make([][]byte, 0, r.workerBufferSize)
+
+	// read records from channel and process
+	lastSentTS := time.Now()
+
+	for {
+		var readyToSend bool
+
+		select {
+		case record, ok := <-r.recordsChan:
+			// check if channel was closed and it is time to exit from worker
+			if !ok {
+				// send what is left in buffer
+				r.store.AppendToSetPipelined(analyticsKeyName, recordsBuffer)
+
+				return
+			}
+
+			// we have new record - prepare it and add to buffer
+			if encoded, err := msgpack.Marshal(record); err != nil {
+				log.Errorf("Error encoding analytics data: %s", err.Error())
+			} else {
+				recordsBuffer = append(recordsBuffer, encoded)
+			}
+
+			// identify that buffer is ready to be sent
+			readyToSend = uint64(len(recordsBuffer)) == r.workerBufferSize
+
+		case <-time.After(time.Duration(r.recordsBufferFlushInterval) * time.Millisecond):
+			// nothing was received for that period of time
+			// anyways send whatever we have, don't hold data too long in buffer
+			readyToSend = true
+		}
+
+		// send data to Redis and reset buffer
+		if len(recordsBuffer) > 0 && (readyToSend || time.Since(lastSentTS) >= recordsBufferForcedFlushInterval) {
+			r.store.AppendToSetPipelined(analyticsKeyName, recordsBuffer)
+			recordsBuffer = recordsBuffer[:0]
+			lastSentTS = time.Now()
+		}
+	}
 
 }
 
