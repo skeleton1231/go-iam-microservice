@@ -9,9 +9,9 @@ import (
 
 	"github.com/dgraph-io/ristretto"
 	pb "github.com/marmotedu/api/proto/apiserver/v1"
+	"github.com/marmotedu/errors"
 	"github.com/ory/ladon"
-	"github.com/pkg/errors"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/apiserver/store"
+	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/authzserver/store"
 )
 
 // Cache is used to store secrets and policies.
