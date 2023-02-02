@@ -2,6 +2,7 @@ package analytics
 
 import (
 	"sync"
+	"sync/atomic"
 	"time"
 
 	"github.com/marmotedu/log"
@@ -70,4 +71,57 @@ func NewAnalytics(options *AnalyticsOptions, store storage.AnalyticsHandler) *An
 	}
 
 	return analytics
+}
+
+// GetAnalytics returns the existed analytics instance.
+// Need to initialize `analytics` instance before calling GetAnalytics.
+func GetAnalytics() *Analytics {
+	return analytics
+}
+
+// Start start the analytics service.
+func (r *Analytics) Start() {
+	r.store.Connect()
+
+	// start worker pool
+	atomic.SwapUint32(&r.shouldStop, 0)
+	for i := 0; i < r.poolSize; i++ {
+		r.poolWg.Add(1)
+		go r.recordWorker()
+	}
+}
+
+// Stop stop the analytics service.
+func (r *Analytics) Stop() {
+	// flag to stop sending records into channel
+	atomic.SwapUint32(&r.shouldStop, 1)
+
+	// close channel to stop workers
+	close(r.recordsChan)
+
+	// wait for all workers to be done
+	r.poolWg.Wait()
+}
+
+// RecordHit will store an AnalyticsRecord in Redis.
+func (r *Analytics) RecordHit(record *AnalyticsRecord) error {
+	// check if we should stop sending records 1st
+	if atomic.LoadUint32(&r.shouldStop) > 0 {
+		return nil
+	}
+
+	// just send record to channel consumed by pool of workers
+	// leave all data crunching and Redis I/O work for pool workers
+	r.recordsChan <- record
+
+	return nil
+}
+
+func (r *Analytics) recordWorker() {
+
+}
+
+// DurationToMillisecond convert time duration type to float64.
+func DurationToMillisecond(d time.Duration) float64 {
+	return float64(d) / 1e6
 }
