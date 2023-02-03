@@ -5,6 +5,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
+	"errors"
 
 	"github.com/go-redis/redis"
 	"github.com/marmotedu/log"
@@ -70,4 +71,31 @@ func handleRedisEvent(v interface{}, handled func(NotificationCommand), reloaded
 type RedisNotifier struct {
 	store   *storage.RedisCluster
 	channel string
+}
+
+// Notify will send a notification to a channel.
+func (r *RedisNotifier) Notify(notif interface{}) bool {
+	if n, ok := notif.(Notification); ok {
+		n.Sign()
+		notif = n
+	}
+
+	toSend, err := json.Marshal(notif)
+	if err != nil {
+		log.Errorf("Problem marshaling notification: %s", err.Error())
+
+		return false
+	}
+
+	log.Debugf("Sending notification: %v", notif)
+
+	if err := r.store.Publish(r.channel, string(toSend)); err != nil {
+		if !errors.Is(err, storage.ErrRedisIsDown) {
+			log.Errorf("Could not send notification: %s", err.Error())
+		}
+
+		return false
+	}
+
+	return true
 }
