@@ -1,9 +1,13 @@
 package options
 
 import (
+	"encoding/json"
+
+	cliflag "github.com/marmotedu/component-base/pkg/cli/flag"
 	"github.com/marmotedu/log"
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/authzserver/analytics"
 	genericoptions "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/options"
+	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/server"
 )
 
 // Options runs a authzserver.
@@ -34,4 +38,43 @@ func NewOptions() *Options {
 	}
 
 	return &o
+}
+
+// ApplyTo applies the run options to the method receiver and returns self.
+func (o *Options) ApplyTo(c *server.Config) error {
+	return nil
+}
+
+// Flags returns flags for a specific APIServer by section name.
+func (o *Options) Flags() (fss cliflag.NamedFlagSets) {
+	o.GenericServerRunOptions.AddFlags(fss.FlagSet("generic"))
+	o.AnalyticsOptions.AddFlags(fss.FlagSet("analytics"))
+	o.RedisOptions.AddFlags(fss.FlagSet("redis"))
+	o.FeatureOptions.AddFlags(fss.FlagSet("features"))
+	o.InsecureServing.AddFlags(fss.FlagSet("insecure serving"))
+	o.SecureServing.AddFlags(fss.FlagSet("secure serving"))
+	o.Log.AddFlags(fss.FlagSet("logs"))
+
+	// Note: the weird ""+ in below lines seems to be the only way to get gofmt to
+	// arrange these text blocks sensibly. Grrr.
+	fs := fss.FlagSet("misc")
+	fs.StringVar(&o.RPCServer, "rpcserver", o.RPCServer, "The address of iam rpc server. "+
+		"The rpc server can provide all the secrets and policies to use.")
+	fs.StringVar(&o.ClientCA, "client-ca-file", o.ClientCA, ""+
+		"If set, any request presenting a client certificate signed by one of "+
+		"the authorities in the client-ca-file is authenticated with an identity "+
+		"corresponding to the CommonName of the client certificate.")
+
+	return fss
+}
+
+func (o *Options) String() string {
+	data, _ := json.Marshal(o)
+
+	return string(data)
+}
+
+// Complete set default Options.
+func (o *Options) Complete() error {
+	return o.SecureServing.Complete()
 }
