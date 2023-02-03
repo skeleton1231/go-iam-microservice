@@ -2,15 +2,15 @@ package authzserver
 
 import (
 	"context"
+	"log"
 
 	"github.com/pkg/errors"
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/pkg/shutdown"
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/pkg/shutdown/shutdownmanagers/posixsignal"
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/pkg/storage"
 
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/apiserver/config"
-
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/authzserver/analytics"
+	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/authzserver/config"
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/authzserver/load"
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/authzserver/load/cache"
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/authzserver/store/apiserver"
@@ -91,6 +91,36 @@ func (s *authzServer) initialize() error {
 		analyticsIns := analytics.NewAnalytics(s.analyticsOptions, &analyticsStore)
 		analyticsIns.Start()
 	}
+
+	return nil
+}
+
+// Run start to run AuthzServer.
+func (s preparedAuthzServer) Run() error {
+	stopCh := make(chan struct{})
+
+	// start shutdown managers
+	if err := s.gs.Start(); err != nil {
+		log.Fatalf("start shutdown manager failed: %s", err.Error())
+	}
+
+	//nolint: errcheck
+	go s.genericAPIServer.Run()
+
+	// in order to ensure that the reported data is not lost,
+	// please ensure the following graceful shutdown sequence
+	s.gs.AddShutdownCallback(shutdown.ShutdownFunc(func(string) error {
+		s.genericAPIServer.Close()
+		if s.analyticsOptions.Enable {
+			analytics.GetAnalytics().Stop()
+		}
+		s.redisCancelFunc()
+
+		return nil
+	}))
+
+	// blocking here via channel to prevents the process exit.
+	<-stopCh
 
 	return nil
 }
