@@ -11,6 +11,7 @@ import (
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/apiserver/config"
 
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/authzserver/analytics"
+	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/authzserver/load"
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/authzserver/load/cache"
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/authzserver/store/apiserver"
 	genericoptions "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/options"
