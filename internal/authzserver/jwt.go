@@ -8,6 +8,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/authzserver/load/cache"
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/middleware"
+	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/middleware/auth"
 )
 
 func newCacheAuth() middleware.AuthStrategy {
