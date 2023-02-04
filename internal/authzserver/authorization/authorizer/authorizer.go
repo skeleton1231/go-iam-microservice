@@ -91,7 +91,20 @@ func (auth *Authorization) LogRejectedAccessRequest(r *ladon.Request, p ladon.Po
 
 // LogGrantedAccessRequest write granted subject access to redis.
 func (auth *Authorization) LogGrantedAccessRequest(r *ladon.Request, p ladon.Policies, d ladon.Policies) {
+	conclusion := fmt.Sprintf("policies %s allow access", joinPoliciesNames(d))
+	rstring, pstring, dstring := convertToString(r, p, d)
+	record := analytics.AnalyticsRecord{
+		TimeStamp:  time.Now().Unix(),
+		Username:   r.Context["username"].(string),
+		Effect:     ladon.AllowAccess,
+		Conclusion: conclusion,
+		Request:    rstring,
+		Policies:   pstring,
+		Deciders:   dstring,
+	}
 
+	record.SetExpiry(0)
+	_ = analytics.GetAnalytics().RecordHit(&record)
 }
 
 func joinPoliciesNames(policies ladon.Policies) string {
