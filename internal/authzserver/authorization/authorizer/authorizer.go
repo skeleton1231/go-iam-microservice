@@ -1,6 +1,9 @@
 package authorizer
 
 import (
+	"encoding/json"
+	"strings"
+
 	"github.com/ory/ladon"
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/authzserver/authorization"
 )
@@ -63,4 +66,21 @@ func (auth *Authorization) LogRejectedAccessRequest(r *ladon.Request, p ladon.Po
 // LogGrantedAccessRequest write granted subject access to redis.
 func (auth *Authorization) LogGrantedAccessRequest(r *ladon.Request, p ladon.Policies, d ladon.Policies) {
 
+}
+
+func joinPoliciesNames(policies ladon.Policies) string {
+	names := []string{}
+	for _, policy := range policies {
+		names = append(names, policy.GetID())
+	}
+
+	return strings.Join(names, ", ")
+}
+
+func convertToString(r *ladon.Request, p ladon.Policies, d ladon.Policies) (string, string, string) {
+	rbytes, _ := json.Marshal(r)
+	pbytes, _ := json.Marshal(p)
+	dbytes, _ := json.Marshal(d)
+
+	return string(rbytes), string(pbytes), string(dbytes)
 }
