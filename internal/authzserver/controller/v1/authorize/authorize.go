@@ -10,6 +10,8 @@ import (
 	"github.com/marmotedu/component-base/pkg/core"
 	"github.com/marmotedu/errors"
 	"github.com/ory/ladon"
+	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/authzserver/authorization"
+	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/authzserver/authorization/authorizer"
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/code"
 )
 
