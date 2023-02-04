@@ -2,9 +2,12 @@ package authorizer
 
 import (
 	"encoding/json"
+	"fmt"
 	"strings"
+	"time"
 
 	"github.com/ory/ladon"
+	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/authzserver/analytics"
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/authzserver/authorization"
 )
 
@@ -60,7 +63,30 @@ func (auth *Authorization) List(username string) ([]*ladon.DefaultPolicy, error)
 
 // LogRejectedAccessRequest write rejected subject access to redis.
 func (auth *Authorization) LogRejectedAccessRequest(r *ladon.Request, p ladon.Policies, d ladon.Policies) {
+	var conclusion string
+	if len(d) > 1 {
+		allowed := joinPoliciesNames(d[0 : len(d)-1])
+		denied := d[len(d)-1].GetID()
+		conclusion = fmt.Sprintf("policies %s allow access, but policy %s forcefully denied it", allowed, denied)
+	} else if len(d) == 1 {
+		denied := d[len(d)-1].GetID()
+		conclusion = fmt.Sprintf("policy %s forcefully denied the access", denied)
+	} else {
+		conclusion = "no policy allowed access"
+	}
 
+	rstring, pstring, dstring := convertToString(r, p, d)
+	record := analytics.AnalyticsRecord{
+		TimeStamp:  time.Now().Unix(),
+		Username:   r.Context["username"].(string),
+		Effect:     ladon.DenyAccess,
+		Conclusion: conclusion,
+		Request:    rstring,
+		Policies:   pstring,
+		Deciders:   dstring,
+	}
+	record.SetExpiry(0)
+	_ = analytics.GetAnalytics().RecordHit(&record)
 }
 
 // LogGrantedAccessRequest write granted subject access to redis.
