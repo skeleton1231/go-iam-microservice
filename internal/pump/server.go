@@ -11,6 +11,7 @@ import (
 	goredislib "github.com/go-redis/redis/v8"
 	"github.com/go-redsync/redsync/v4"
 	"github.com/go-redsync/redsync/v4/redis/goredis"
+	"github.com/marmotedu/log"
 
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/apiserver/config"
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pump/pumps"
@@ -54,4 +55,33 @@ func createPumpServer(cfg *config.Config) (*pumpServer, error) {
 	}
 
 	return server, nil
+}
+
+func (s *pumpServer) initialize() {
+	pmps = make([]pumps.Pump, len(s.pumps))
+	i := 0
+	for key, pmp := range s.pumps {
+		pumpTypeName := pmp.Type
+		if pumpTypeName == "" {
+			pumpTypeName = key
+		}
+
+		pmpType, err := pumps.GetPumpByName(pumpTypeName)
+		if err != nil {
+			log.Errorf("Pump load error (skipping): %s", err.Error())
+		} else {
+			pmpIns := pmpType.New()
+			initErr := pmpIns.Init(pmp.Meta)
+			if initErr != nil {
+				log.Errorf("Pump init error (skipping): %s", initErr.Error())
+			} else {
+				log.Infof("Init Pump: %s", pmpIns.GetName())
+				pmpIns.SetFilters(pmp.Filters)
+				pmpIns.SetTimeout(pmp.Timeout)
+				pmpIns.SetOmitDetailedRecording(pmp.OmitDetailedRecording)
+				pmps[i] = pmpIns
+			}
+		}
+		i++
+	}
 }
