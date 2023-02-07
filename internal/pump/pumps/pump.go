@@ -1,7 +1,8 @@
-package pump
+package pumps
 
 import (
 	"context"
+	"errors"
 )
 
 type Pump interface {
@@ -15,4 +16,13 @@ type Pump interface {
 	GetTimeout() int
 	SetOmitDetailedRecording(bool)
 	GetOmitDetailedRecording() bool
+}
+
+// GetPumpByName returns the pump instance by given name.
+func GetPumpByName(name string) (Pump, error) {
+	if pump, ok := availablePumps[name]; ok && pump != nil {
+		return pump, nil
+	}
+
+	return nil, errors.New(name + " Not found")
 }
