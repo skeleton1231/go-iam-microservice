@@ -11,15 +11,17 @@ import (
 	"time"
 
 	goredislib "github.com/go-redis/redis/v8"
-
 	"github.com/go-redsync/redsync/v4"
-	"github.com/go-redsync/redsync/v4/redis/goredis"
+	"github.com/go-redsync/redsync/v4/redis/goredis/v8"
 	"github.com/marmotedu/log"
+	"github.com/vmihailenco/msgpack"
+
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pump/analytics"
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pump/config"
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pump/options"
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pump/pumps"
-	"github.com/vmihailenco/msgpack"
+	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pump/storage"
+	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pump/storage/redis"
 )
 
 var pmps []pumps.Pump
