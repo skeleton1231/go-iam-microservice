@@ -14,6 +14,7 @@ import (
 	"github.com/marmotedu/log"
 
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/apiserver/config"
+	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pump/options"
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pump/pumps"
 )
 

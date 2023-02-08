@@ -1,9 +1,13 @@
 package options
 
 import (
+	"github.com/marmotedu/component-base/pkg/json"
+
+	cliflag "github.com/marmotedu/component-base/pkg/cli/flag"
 	"github.com/marmotedu/log"
 
 	genericoptions "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/options"
+	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pump/analytics"
 )
 
 // PumpConfig defines options for pump back-end.
@@ -45,4 +49,30 @@ func NewOptions() *Options {
 	}
 
 	return &s
+}
+
+// Flags returns flags for a specific APIServer by section name.
+func (o *Options) Flags() (fss cliflag.NamedFlagSets) {
+	o.RedisOptions.AddFlags(fss.FlagSet("redis"))
+	o.Log.AddFlags(fss.FlagSet("logs"))
+
+	// Note: the weird ""+ in below lines seems to be the only way to get gofmt to
+	// arrange these text blocks sensibly. Grrr.
+	fs := fss.FlagSet("misc")
+	fs.IntVar(&o.PurgeDelay, "purge-delay", o.PurgeDelay, ""+
+		"This setting the purge delay (in seconds) when purge the data from Redis to MongoDB or other data stores.")
+	fs.StringVar(&o.HealthCheckPath, "health-check-path", o.HealthCheckPath, ""+
+		"Specifies liveness health check request path.")
+	fs.StringVar(&o.HealthCheckAddress, "health-check-address", o.HealthCheckAddress, ""+
+		"Specifies liveness health check bind address.")
+	fs.BoolVar(&o.OmitDetailedRecording, "omit-detailed-recording", o.OmitDetailedRecording, ""+
+		"Setting this to true will avoid writing policy fields for each authorization request in pumps.")
+
+	return fss
+}
+
+func (o *Options) String() string {
+	data, _ := json.Marshal(o)
+
+	return string(data)
 }
