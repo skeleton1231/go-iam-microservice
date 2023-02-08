@@ -3,6 +3,8 @@ package pumps
 import (
 	"context"
 	"errors"
+
+	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pump/analytics"
 )
 
 type Pump interface {
@@ -10,8 +12,8 @@ type Pump interface {
 	New() Pump
 	Init(interface{}) error
 	WriteData(context.Context, []interface{}) error
-	SetFilters()
-	GetFilters()
+	SetFilters(analytics.AnalyticsFilters)
+	GetFilters() analytics.AnalyticsFilters
 	SetTimeout(timeout int)
 	GetTimeout() int
 	SetOmitDetailedRecording(bool)
