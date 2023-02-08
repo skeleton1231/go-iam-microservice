@@ -7,7 +7,7 @@ package redis
 import (
 	"testing"
 
-	genericoptions "github.com/marmotedu/iam/internal/pkg/options"
+	genericoptions "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/options"
 )
 
 func TestRedisAddressConfiguration(t *testing.T) {
