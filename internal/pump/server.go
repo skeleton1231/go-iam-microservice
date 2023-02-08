@@ -5,17 +5,21 @@
 package pump
 
 import (
+	"context"
 	"fmt"
+	"sync"
 	"time"
 
 	goredislib "github.com/go-redis/redis/v8"
+
 	"github.com/go-redsync/redsync/v4"
 	"github.com/go-redsync/redsync/v4/redis/goredis"
 	"github.com/marmotedu/log"
-
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/apiserver/config"
+	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pump/analytics"
+	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pump/config"
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pump/options"
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pump/pumps"
+	"github.com/vmihailenco/msgpack"
 )
 
 var pmps []pumps.Pump
@@ -58,6 +62,70 @@ func createPumpServer(cfg *config.Config) (*pumpServer, error) {
 	return server, nil
 }
 
+func (s *pumpServer) PrepareRun() preparedPumpServer {
+	s.initialize()
+
+	return preparedPumpServer{s}
+}
+
+func (s preparedPumpServer) Run(stopCh <-chan struct{}) error {
+	ticker := time.NewTicker(time.Duration(s.secInterval) * time.Second)
+	defer ticker.Stop()
+
+	log.Info("Now run loop to clean data from redis")
+	for {
+		select {
+		case <-ticker.C:
+			s.pump()
+		// exit consumption cycle when receive SIGINT and SIGTERM signal
+		case <-stopCh:
+			log.Info("stop purge loop")
+
+			return nil
+		}
+	}
+}
+
+// pump get authorization log from redis and write to pumps.
+func (s *pumpServer) pump() {
+	if err := s.mutex.Lock(); err != nil {
+		log.Info("there is already an iam-pump instance running.")
+
+		return
+	}
+	defer func() {
+		if _, err := s.mutex.Unlock(); err != nil {
+			log.Errorf("could not release iam-pump lock. err: %v", err)
+		}
+	}()
+
+	analyticsValues := s.analyticsStore.GetAndDeleteSet(storage.AnalyticsKeyName)
+	if len(analyticsValues) == 0 {
+		return
+	}
+
+	// Convert to something clean
+	keys := make([]interface{}, len(analyticsValues))
+
+	for i, v := range analyticsValues {
+		decoded := analytics.AnalyticsRecord{}
+		err := msgpack.Unmarshal([]byte(v.(string)), &decoded)
+		log.Debugf("Decoded Record: %v", decoded)
+		if err != nil {
+			log.Errorf("Couldn't unmarshal analytics data: %s", err.Error())
+		} else {
+			if s.omitDetails {
+				decoded.Policies = ""
+				decoded.Deciders = ""
+			}
+			keys[i] = interface{}(decoded)
+		}
+	}
+
+	// Send to pumps
+	writeToPumps(keys, s.secInterval)
+}
+
 func (s *pumpServer) initialize() {
 	pmps = make([]pumps.Pump, len(s.pumps))
 	i := 0
@@ -84,5 +152,94 @@ func (s *pumpServer) initialize() {
 			}
 		}
 		i++
+	}
+}
+
+func writeToPumps(keys []interface{}, purgeDelay int) {
+	// Send to pumps
+	if pmps != nil {
+		var wg sync.WaitGroup
+		wg.Add(len(pmps))
+		for _, pmp := range pmps {
+			go execPumpWriting(&wg, pmp, &keys, purgeDelay)
+		}
+		wg.Wait()
+	} else {
+		log.Warn("No pumps defined!")
+	}
+}
+
+func filterData(pump pumps.Pump, keys []interface{}) []interface{} {
+	filters := pump.GetFilters()
+	if !filters.HasFilter() && !pump.GetOmitDetailedRecording() {
+		return keys
+	}
+	filteredKeys := keys[:] // nolint: gocritic
+	newLenght := 0
+
+	for _, key := range filteredKeys {
+		decoded, _ := key.(analytics.AnalyticsRecord)
+		if pump.GetOmitDetailedRecording() {
+			decoded.Policies = ""
+			decoded.Deciders = ""
+		}
+		if filters.ShouldFilter(decoded) {
+			continue
+		}
+		filteredKeys[newLenght] = decoded
+		newLenght++
+	}
+	filteredKeys = filteredKeys[:newLenght]
+
+	return filteredKeys
+}
+
+func execPumpWriting(wg *sync.WaitGroup, pmp pumps.Pump, keys *[]interface{}, purgeDelay int) {
+	timer := time.AfterFunc(time.Duration(purgeDelay)*time.Second, func() {
+		if pmp.GetTimeout() == 0 {
+			log.Warnf(
+				"Pump %s is taking more time than the value configured of purge_delay. You should try to set a timeout for this pump.",
+				pmp.GetName(),
+			)
+		} else if pmp.GetTimeout() > purgeDelay {
+			log.Warnf("Pump %s is taking more time than the value configured of purge_delay. You should try lowering the timeout configured for this pump.", pmp.GetName())
+		}
+	})
+	defer timer.Stop()
+	defer wg.Done()
+
+	log.Debugf("Writing to: %s", pmp.GetName())
+
+	ch := make(chan error, 1)
+	var ctx context.Context
+	var cancel context.CancelFunc
+	// Initialize context depending if the pump has a configured timeout
+	if tm := pmp.GetTimeout(); tm > 0 {
+		ctx, cancel = context.WithTimeout(context.Background(), time.Duration(tm)*time.Second)
+	} else {
+		ctx, cancel = context.WithCancel(context.Background())
+	}
+
+	defer cancel()
+
+	go func(ch chan error, ctx context.Context, pmp pumps.Pump, keys *[]interface{}) {
+		filteredKeys := filterData(pmp, *keys)
+
+		ch <- pmp.WriteData(ctx, filteredKeys)
+	}(ch, ctx, pmp, keys)
+
+	select {
+	case err := <-ch:
+		if err != nil {
+			log.Warnf("Error Writing to: %s - Error: %s", pmp.GetName(), err.Error())
+		}
+	case <-ctx.Done():
+		//nolint: errorlint
+		switch ctx.Err() {
+		case context.Canceled:
+			log.Warnf("The writing to %s have got canceled.", pmp.GetName())
+		case context.DeadlineExceeded:
+			log.Warnf("Timeout Writing to: %s", pmp.GetName())
+		}
 	}
 }
