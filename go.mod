@@ -97,6 +97,7 @@ require (
 	github.com/goccy/go-json v0.10.0 // indirect
 	github.com/influxdata/influxdb v1.11.0
 	github.com/json-iterator/go v1.1.12 // indirect
+	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/marmotedu/component-base v1.6.2
 	github.com/marmotedu/errors v1.0.2
@@ -111,6 +112,7 @@ require (
 	github.com/spf13/cobra v1.6.1
 	github.com/spf13/viper v1.14.0
 	github.com/ugorji/go/codec v1.2.7 // indirect
+	github.com/vinllen/mgo v0.0.0-20220329061231-e5ecea62f194
 	github.com/vmihailenco/msgpack v4.0.4+incompatible
 	golang.org/x/crypto v0.4.0 // indirect
 	golang.org/x/net v0.4.0 // indirect
