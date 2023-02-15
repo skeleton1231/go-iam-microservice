@@ -112,6 +112,7 @@ require (
 	github.com/novalagung/gubrak v1.0.0
 	github.com/olivere/elastic/v7 v7.0.32
 	github.com/pelletier/go-toml/v2 v2.0.6 // indirect
+	github.com/robfig/cron/v3 v3.0.1
 	github.com/segmentio/kafka-go v0.4.38
 	github.com/sirupsen/logrus v1.9.0 // indirect
 	github.com/spf13/cobra v1.6.1
