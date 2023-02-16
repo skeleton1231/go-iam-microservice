@@ -13,6 +13,7 @@ import (
 	"github.com/robfig/cron/v3"
 	genericoptions "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/options"
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/watcher/options"
+	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/watcher/watcher"
 )
 
 type watchJob struct {
