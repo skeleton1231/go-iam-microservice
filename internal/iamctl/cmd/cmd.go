@@ -11,13 +11,14 @@ import (
 	"os"
 
 	cliflag "github.com/marmotedu/component-base/pkg/cli/flag"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/iamctl/cmd/color"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/iamctl/util/templates"
-
-	cmdutil "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/iamctl/cmd/util"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/pkg/cli/genericclioptions"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+
+	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/iamctl/cmd/color"
+	cmdutil "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/iamctl/cmd/util"
+	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/iamctl/util/templates"
+	genericapiserver "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/server"
+	"github.com/skeleton1231/go-gin-restful-api-boilerplate/pkg/cli/genericclioptions"
 )
 
 // NewDefaultIAMCtlCommand creates the `iamctl` command with default arguments.
