@@ -12,8 +12,10 @@ import (
 	"github.com/fatih/color"
 	"github.com/marmotedu/component-base/pkg/util/stringutil"
 	"github.com/olekukonko/tablewriter"
+	cmdutil "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/iamctl/cmd/util"
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/iamctl/util/templates"
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/pkg/cli/genericclioptions"
+
 	"github.com/spf13/cobra"
 )
 
