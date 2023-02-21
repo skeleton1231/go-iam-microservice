@@ -11,10 +11,7 @@ import (
 	"os"
 
 	cliflag "github.com/marmotedu/component-base/pkg/cli/flag"
-
-	//cmdutil "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/iamctl/cmd/util"
-	//"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/iamctl/cmd/validate"
-	//"github.com/skeleton1231/iam/internal/iamctl/cmd/version"
+	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/iamctl/cmd/color"
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/iamctl/util/templates"
 
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/pkg/cli/genericclioptions"
