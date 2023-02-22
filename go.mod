@@ -49,6 +49,7 @@ require (
 	github.com/jinzhu/now v1.1.3 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/klauspost/compress v1.15.9 // indirect
+	github.com/likexian/gokit v0.0.0-20190515154418-0f6bc9e9ef89 // indirect
 	github.com/magiconair/properties v1.8.6 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/mattn/go-colorable v0.1.12 // indirect
@@ -106,6 +107,7 @@ require (
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/leodido/go-urn v1.2.1 // indirect
+	github.com/likexian/host-stat-go v0.0.0-20190516151207-c9cf36dd6ce9
 	github.com/marmotedu/component-base v1.6.2
 	github.com/marmotedu/errors v1.0.2
 	github.com/marmotedu/iam v1.7.0

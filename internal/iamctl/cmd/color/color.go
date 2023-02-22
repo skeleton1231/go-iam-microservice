@@ -12,11 +12,11 @@ import (
 	"github.com/fatih/color"
 	"github.com/marmotedu/component-base/pkg/util/stringutil"
 	"github.com/olekukonko/tablewriter"
+	"github.com/spf13/cobra"
+
 	cmdutil "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/iamctl/cmd/util"
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/iamctl/util/templates"
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/pkg/cli/genericclioptions"
-
-	"github.com/spf13/cobra"
 )
 
 // ColorOptions is an options struct to support color subcommands.
