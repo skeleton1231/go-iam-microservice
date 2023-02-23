@@ -22,6 +22,7 @@ import (
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/iamctl/cmd/options"
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/iamctl/cmd/policy"
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/iamctl/cmd/secret"
+	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/iamctl/cmd/user"
 	cmdutil "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/iamctl/cmd/util"
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/iamctl/cmd/validate"
 	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/iamctl/util/templates"
