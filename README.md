@@ -1,4 +1,4 @@
-# IAM system framwork
+# IAM System framwork
 
 The IAM system architecture consists of several components that interact with each other to provide a secure and efficient environment for managing access to resources. These components include:
 
