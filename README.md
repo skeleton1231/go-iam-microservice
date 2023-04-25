@@ -1,76 +1,32 @@
-# IAM - Identity and Access Management System
+The IAM system architecture consists of several components that interact with each other to provide a secure and efficient environment for managing access to resources. These components include:
 
-IAM = **I**dentity and **A**access **M**management
+User: The end user who interacts with the IAM system through various interfaces, such as web browsers or API clients.
 
-IAM is an identity and access management system developed based on Go language, which is used to authorize resource access.
+IAM Web Console: The web-based interface that allows users to manage their access rights and security policies. Users can create, modify, and delete resources such as users, groups, roles, and policies.
 
-Note here:
-- If you are a reader of the "Go language project development practice" column of Geek Time, please use the v1.1.0 version (tag)
-- If you are a reader of the book "Building an Enterprise Go Project from Scratch", please use the v1.6.t2 version (tag)
+IAM API: The application programming interface (API) that provides programmatic access to the IAM system. It allows developers to integrate IAM functionality into their applications and services.
 
+Load Balancer: Distributes incoming network traffic across multiple servers to ensure that no single server is overwhelmed with requests. This helps to maintain the availability and reliability of the IAM system.
 
-IAM also has the following capabilities:
+IAM API Server: Processes incoming API requests and manages the resources such as users, policies, secrets, and others. It performs validation and configuration of the data for these objects.
 
-1. Cooperate with the Geekbang Time column **《[Go language project development practice(Go 语言项目开发实战)](https://time.geekbang.org/column/intro/100079601?tab=intro)》**, explain how to use Go to do enterprise-level applications The development of the project is the theoretical course of the project, which includes the explanation of various knowledge points and construction ideas of the project, as well as my first-line research and development experience and suggestions.
+IAM Controller Manager: Manages the IAM system's background tasks, such as garbage collection, policy evaluation, and resource synchronization.
 
-2. As a development scaffolding, developers can clone and develop their own applications quickly.
+IAM ETCD: A distributed key-value store that provides a reliable way to store data across a cluster of machines. It serves as the primary datastore for the IAM system, holding the resource configuration data and metadata.
 
-The IAM project will be maintained for a long time and updated regularly, **welcome brothers Star & Contribute**
+MySQL: A relational database management system (RDBMS) that stores the IAM system's user data, including user profiles, group memberships, and access policies.
 
-## Features
+Redis: An in-memory data structure store that is used for caching and session management within the IAM system.
 
-This project uses most of the core skills developed by Go enterprises, as shown in the figure below:
+Information Flow
 
+The user sends a request to the IAM Web Console or IAM API.
+The Load Balancer distributes the incoming request to one of the available IAM API Servers.
+The IAM API Server processes the request, validating the user's credentials and ensuring that they have the appropriate access rights.
+The IAM API Server communicates with the IAM ETCD to retrieve the necessary resource data and metadata.
+The IAM API Server may also interact with the MySQL database to obtain user-specific data, such as group memberships and access policies.
+If necessary, the IAM API Server can utilize Redis for caching and session management.
+Once the IAM API Server has processed the request and retrieved the necessary data, it sends a response back to the user.
+Conclusion
 
-For more information, please refer to: [marmotedu/gocollect](https://github.com/marmotedu/gocollect)
-
-## Software Architecture
-
-## Quick start
-
-### Dependency Check
-
-### Rapid Deployment
-
-### Construct
-
-If you need to recompile the IAM project, you can perform the following 2 steps:
-
-1. Clone the source code
-
-```bash
-$ git clone https://github.com/marmotedu/iam $GOPATH/src/github.com/marmotedu/iam
-```
-
-2. Compile
-
-```bash
-$ cd $GOPATH/src/github.com/marmotedu/iam
-$ make
-```
-
-The built binaries are stored in the `_output/platforms/linux/amd64/` directory.
-
-## user's guidance
-
-
-## How to contribute
-
-
-## Community
-
-You are encouraged to communicate most things via [GitHub issues](https://github.com/marmotedu/iam/issues/new/choose) or pull requests.
-
-## About the author
-
-- Lingfei Kong <colin404@foxmail.com>
-
-In order to facilitate communication, I have created a WeChat group, you can add me **WeChat: nightskong**, and pull you into the group to facilitate communication.
-
-## who is using
-
-If you have a project using the iam system template, you are welcome to contact the author and join the use case.
-
-## license
-
-IAM is licensed under the MIT. See [LICENSE](LICENSE) for the full license text.
+The IAM system architecture provides a robust and scalable solution for managing access rights and security policies in modern software systems. By understanding its components and information flow, you can better appreciate the IAM system's capabilities and integrate it effectively into your applications and services.
