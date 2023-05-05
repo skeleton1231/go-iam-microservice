@@ -11,7 +11,7 @@ import (
 
 	"github.com/marmotedu/iam/pkg/log"
 	"github.com/mitchellh/mapstructure"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pump/analytics"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pump/analytics"
 )
 
 // SyslogPump defines a syslog pump with syslog specific options and common options.

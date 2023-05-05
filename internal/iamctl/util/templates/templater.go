@@ -14,7 +14,7 @@ import (
 	"github.com/spf13/cobra"
 	flag "github.com/spf13/pflag"
 
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/iamctl/util/term"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/iamctl/util/term"
 )
 
 type FlagExposer interface {

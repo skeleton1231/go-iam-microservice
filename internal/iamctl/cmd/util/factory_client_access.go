@@ -10,7 +10,7 @@ import (
 	"github.com/marmotedu/marmotedu-sdk-go/marmotedu/service/iam"
 	restclient "github.com/marmotedu/marmotedu-sdk-go/rest"
 	"github.com/marmotedu/marmotedu-sdk-go/tools/clientcmd"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/pkg/cli/genericclioptions"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/cli/genericclioptions"
 )
 
 type factoryImpl struct {

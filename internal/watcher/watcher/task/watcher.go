@@ -10,9 +10,9 @@ import (
 
 	"github.com/go-redsync/redsync/v4"
 	metav1 "github.com/marmotedu/component-base/pkg/meta/v1"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/apiserver/store/mysql"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/watcher/options"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/watcher/watcher"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/store/mysql"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/watcher/options"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/watcher/watcher"
 
 	"github.com/marmotedu/iam/pkg/log"
 )

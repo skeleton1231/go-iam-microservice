@@ -8,8 +8,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/marmotedu/iam/pkg/log"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/authzserver/load"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/pkg/storage"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/authzserver/load"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/storage"
 )
 
 // Publish publish a redis event to specified redis channel when some action occurred.

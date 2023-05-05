@@ -11,9 +11,9 @@ import (
 	"github.com/marmotedu/iam/pkg/log"
 	"github.com/marmotedu/iam/pkg/log/cronlog"
 	"github.com/robfig/cron/v3"
-	genericoptions "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/options"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/watcher/options"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/watcher/watcher"
+	genericoptions "github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/options"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/watcher/options"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/watcher/watcher"
 )
 
 type watchJob struct {

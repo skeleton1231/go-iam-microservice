@@ -13,7 +13,7 @@ import (
 	"github.com/marmotedu/component-base/pkg/json"
 	"github.com/marmotedu/iam/pkg/log"
 	"github.com/mitchellh/mapstructure"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pump/analytics"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pump/analytics"
 )
 
 // InfluxPump defines an influx pump with influx specific options and common options.

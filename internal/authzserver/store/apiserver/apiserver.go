@@ -5,7 +5,7 @@ import (
 
 	pb "github.com/marmotedu/api/proto/apiserver/v1"
 	"github.com/marmotedu/log"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/authzserver/store"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/authzserver/store"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 )

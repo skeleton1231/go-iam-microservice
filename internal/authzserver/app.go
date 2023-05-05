@@ -7,9 +7,9 @@ package authzserver
 
 import (
 	"github.com/marmotedu/log"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/authzserver/config"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/authzserver/options"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/pkg/app"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/authzserver/config"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/authzserver/options"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/app"
 )
 
 const commandDesc = `Authorization server to run ladon policies which can protecting your resources.

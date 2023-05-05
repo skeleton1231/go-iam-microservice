@@ -4,7 +4,7 @@ import (
 	cliflag "github.com/marmotedu/component-base/pkg/cli/flag"
 	"github.com/marmotedu/component-base/pkg/json"
 	"github.com/marmotedu/log"
-	genericoptions "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/options"
+	genericoptions "github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/options"
 )
 
 // CleanOptions defines options for clean watcher.

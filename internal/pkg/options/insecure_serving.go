@@ -9,7 +9,7 @@ import (
 	"net"
 	"strconv"
 
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/server"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/server"
 	"github.com/spf13/pflag"
 )
 

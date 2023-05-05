@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/pkg/shutdown"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/shutdown"
 )
 
 type startShutdownFunc func(sm shutdown.ShutdownManager)

@@ -11,8 +11,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	cmdutil "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/iamctl/cmd/util"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/iamctl/util/templates"
+	cmdutil "github.com/skeleton1231/go-iam-ecommerce-microservice/internal/iamctl/cmd/util"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/iamctl/util/templates"
 )
 
 const defaultBoilerPlate = `

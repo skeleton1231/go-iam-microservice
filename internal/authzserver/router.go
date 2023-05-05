@@ -9,9 +9,9 @@ import (
 	"github.com/marmotedu/component-base/pkg/core"
 	"github.com/marmotedu/errors"
 	"github.com/marmotedu/log"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/authzserver/controller/v1/authorize"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/authzserver/load/cache"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/code"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/authzserver/controller/v1/authorize"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/authzserver/load/cache"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/code"
 )
 
 func initRouter(g *gin.Engine) {

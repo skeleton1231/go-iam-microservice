@@ -7,8 +7,8 @@ import (
 	"time"
 
 	"github.com/ory/ladon"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/authzserver/analytics"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/authzserver/authorization"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/authzserver/analytics"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/authzserver/authorization"
 )
 
 // PolicyGetter defines function to get policy for a given user.

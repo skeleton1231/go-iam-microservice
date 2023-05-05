@@ -4,7 +4,7 @@
 
 package authzserver
 
-import "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/authzserver/config"
+import "github.com/skeleton1231/go-iam-ecommerce-microservice/internal/authzserver/config"
 
 // Run runs the specified AuthzServer. This should never exit.
 func Run(cfg *config.Config) error {

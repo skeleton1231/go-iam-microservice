@@ -20,7 +20,7 @@ import (
 	"golang.org/x/sync/errgroup"
 
 	"github.com/marmotedu/iam/pkg/log"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/middleware"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/middleware"
 )
 
 // GenericAPIServer contains state for an iam api server.

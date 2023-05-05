@@ -9,10 +9,10 @@ import (
 	"sync"
 
 	"github.com/marmotedu/errors"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/apiserver/store"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/logger"
-	genericoptions "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/options"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/pkg/db"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/store"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/logger"
+	genericoptions "github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/options"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/db"
 	"gorm.io/gorm"
 )
 

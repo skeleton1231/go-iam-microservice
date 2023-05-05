@@ -15,7 +15,7 @@ import (
 	"github.com/mitchellh/mapstructure"
 
 	"github.com/marmotedu/iam/pkg/log"
-	genericoptions "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/options"
+	genericoptions "github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/options"
 )
 
 // ------------------- REDIS CLUSTER STORAGE MANAGER -------------------------------

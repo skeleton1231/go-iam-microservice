@@ -18,9 +18,9 @@ import (
 	"github.com/marmotedu/iam/pkg/log"
 	"github.com/spf13/viper"
 
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/apiserver/store"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/middleware"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/middleware/auth"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/store"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/middleware"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/middleware/auth"
 )
 
 const (

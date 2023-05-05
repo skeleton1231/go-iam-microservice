@@ -11,8 +11,8 @@ import (
 	"github.com/marmotedu/component-base/pkg/fields"
 	metav1 "github.com/marmotedu/component-base/pkg/meta/v1"
 	"github.com/marmotedu/errors"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/code"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/util/gormutil"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/code"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/util/gormutil"
 	gorm "gorm.io/gorm"
 )
 

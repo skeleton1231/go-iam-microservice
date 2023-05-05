@@ -5,7 +5,7 @@ import (
 
 	v1 "github.com/marmotedu/api/apiserver/v1"
 	metav1 "github.com/marmotedu/component-base/pkg/meta/v1"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/apiserver/store"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/store"
 )
 
 // PolicySrv defines functions used to handle policy request.

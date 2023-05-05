@@ -10,8 +10,8 @@ import (
 	v1 "github.com/marmotedu/api/apiserver/v1"
 	metav1 "github.com/marmotedu/component-base/pkg/meta/v1"
 	"github.com/marmotedu/errors"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/apiserver/store"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/code"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/store"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/code"
 )
 
 // SecretSrv defines functions used to handle secret request.

@@ -6,9 +6,9 @@ package authzserver
 
 import (
 	"github.com/pkg/errors"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/authzserver/load/cache"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/middleware"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/middleware/auth"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/authzserver/load/cache"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/middleware"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/middleware/auth"
 )
 
 func newCacheAuth() middleware.AuthStrategy {

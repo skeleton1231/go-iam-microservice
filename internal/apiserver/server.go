@@ -15,17 +15,17 @@ import (
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/reflection"
 
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/apiserver/config"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/apiserver/store"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/apiserver/store/mysql"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/pkg/shutdown"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/pkg/shutdown/shutdownmanagers/posixsignal"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/config"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/store"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/store/mysql"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/shutdown"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/shutdown/shutdownmanagers/posixsignal"
 
-	genericoptions "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/options"
-	genericapiserver "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/server"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/pkg/storage"
+	genericoptions "github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/options"
+	genericapiserver "github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/server"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/storage"
 
-	cachev1 "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/apiserver/controller/v1/cache"
+	cachev1 "github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/controller/v1/cache"
 )
 
 type apiServer struct {

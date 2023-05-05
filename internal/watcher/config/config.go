@@ -4,7 +4,7 @@
 
 package config
 
-import "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/watcher/options"
+import "github.com/skeleton1231/go-iam-ecommerce-microservice/internal/watcher/options"
 
 // Config is the running configuration structure of the IAM pump service.
 type Config struct {

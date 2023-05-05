@@ -5,17 +5,17 @@ import (
 	"log"
 
 	"github.com/pkg/errors"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/pkg/shutdown"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/pkg/shutdown/shutdownmanagers/posixsignal"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/pkg/storage"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/shutdown"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/shutdown/shutdownmanagers/posixsignal"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/storage"
 
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/authzserver/analytics"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/authzserver/config"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/authzserver/load"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/authzserver/load/cache"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/authzserver/store/apiserver"
-	genericoptions "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/options"
-	genericapiserver "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/server"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/authzserver/analytics"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/authzserver/config"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/authzserver/load"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/authzserver/load/cache"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/authzserver/store/apiserver"
+	genericoptions "github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/options"
+	genericapiserver "github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/server"
 )
 
 // RedisKeyPrefix defines the prefix key in redis for analytics data.

@@ -5,9 +5,9 @@ import (
 
 	cliflag "github.com/marmotedu/component-base/pkg/cli/flag"
 	"github.com/marmotedu/log"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/authzserver/analytics"
-	genericoptions "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/options"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/server"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/authzserver/analytics"
+	genericoptions "github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/options"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/server"
 )
 
 // Options runs a authzserver.

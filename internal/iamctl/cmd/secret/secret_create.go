@@ -14,9 +14,9 @@ import (
 	apiclientv1 "github.com/marmotedu/marmotedu-sdk-go/marmotedu/service/iam/apiserver/v1"
 	"github.com/spf13/cobra"
 
-	cmdutil "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/iamctl/cmd/util"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/iamctl/util/templates"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/pkg/cli/genericclioptions"
+	cmdutil "github.com/skeleton1231/go-iam-ecommerce-microservice/internal/iamctl/cmd/util"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/iamctl/util/templates"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/cli/genericclioptions"
 )
 
 const (

@@ -4,13 +4,13 @@ import (
 	"time"
 
 	"github.com/marmotedu/log"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/apiserver/store/mysql"
-	genericoptions "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/options"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/store/mysql"
+	genericoptions "github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/options"
 
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/watcher/config"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/watcher/options"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/pkg/shutdown"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/pkg/shutdown/shutdownmanagers/posixsignal"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/watcher/config"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/watcher/options"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/shutdown"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/shutdown/shutdownmanagers/posixsignal"
 )
 
 type watcherServer struct {

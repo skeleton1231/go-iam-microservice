@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/marmotedu/log"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/pkg/storage"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/storage"
 	"github.com/vmihailenco/msgpack"
 )
 

@@ -6,6 +6,6 @@ package all
 
 // nolint: golint
 import (
-	_ "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/watcher/watcher/clean"
-	_ "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/watcher/watcher/task"
+	_ "github.com/skeleton1231/go-iam-ecommerce-microservice/internal/watcher/watcher/clean"
+	_ "github.com/skeleton1231/go-iam-ecommerce-microservice/internal/watcher/watcher/task"
 )

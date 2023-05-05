@@ -4,7 +4,7 @@
 
 package v1
 
-import "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/apiserver/store"
+import "github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/store"
 
 //go:generate mockgen -self_package=github.com/marmotedu/iam/internal/apiserver/service/v1 -destination mock_service.go -package v1 github.com/marmotedu/iam/internal/apiserver/service/v1 Service,UserSrv,SecretSrv,PolicySrv
 

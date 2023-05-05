@@ -4,8 +4,8 @@
 package user
 
 import (
-	srvv1 "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/apiserver/service/v1"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/apiserver/store"
+	srvv1 "github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/service/v1"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/store"
 )
 
 // UserController create a user handler used to handle request for user resource.

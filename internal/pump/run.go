@@ -5,9 +5,9 @@
 package pump
 
 import (
-	genericapiserver "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/server"
+	genericapiserver "github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/server"
 
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pump/config"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pump/config"
 )
 
 // Run runs the specified pump server. This should never exit.

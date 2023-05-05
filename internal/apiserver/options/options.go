@@ -10,8 +10,8 @@ import (
 	"github.com/marmotedu/component-base/pkg/json"
 	"github.com/marmotedu/component-base/pkg/util/idutil"
 	"github.com/marmotedu/iam/pkg/log"
-	genericoptions "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/options"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/server"
+	genericoptions "github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/options"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/server"
 )
 
 // Options runs an iam api server.

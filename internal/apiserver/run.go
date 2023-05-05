@@ -4,7 +4,7 @@
 
 package apiserver
 
-import "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/apiserver/config"
+import "github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/config"
 
 // Run runs the specified APIServer. This should never exit.
 func Run(cfg *config.Config) error {

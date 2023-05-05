@@ -1,4 +1,4 @@
-module github.com/skeleton1231/go-gin-restful-api-boilerplate
+module github.com/skeleton1231/go-iam-ecommerce-microservice
 
 go 1.19
 

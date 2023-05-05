@@ -14,7 +14,7 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/pkg/shutdown"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/shutdown"
 )
 
 // Name defines shutdown manager name.

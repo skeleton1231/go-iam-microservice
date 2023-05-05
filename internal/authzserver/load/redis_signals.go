@@ -9,7 +9,7 @@ import (
 
 	"github.com/go-redis/redis"
 	"github.com/marmotedu/log"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/pkg/storage"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/storage"
 )
 
 // NotificationCommand defines a new notification type.

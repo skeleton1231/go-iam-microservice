@@ -12,7 +12,7 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/authzserver"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/authzserver"
 )
 
 func main() {

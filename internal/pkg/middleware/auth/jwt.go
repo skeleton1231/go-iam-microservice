@@ -7,7 +7,7 @@ package auth
 import (
 	ginjwt "github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/middleware"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/middleware"
 )
 
 // AuthzAudience defines the value of jwt audience field.

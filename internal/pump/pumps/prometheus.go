@@ -13,7 +13,7 @@ import (
 	"github.com/ory/ladon"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pump/analytics"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pump/analytics"
 
 	"github.com/marmotedu/iam/pkg/log"
 )

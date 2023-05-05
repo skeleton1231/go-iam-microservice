@@ -6,8 +6,8 @@ import (
 	cliflag "github.com/marmotedu/component-base/pkg/cli/flag"
 	"github.com/marmotedu/log"
 
-	genericoptions "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/options"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pump/analytics"
+	genericoptions "github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/options"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pump/analytics"
 )
 
 // PumpConfig defines options for pump back-end.

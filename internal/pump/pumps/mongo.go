@@ -22,7 +22,7 @@ import (
 	"github.com/kelseyhightower/envconfig"
 	"github.com/marmotedu/errors"
 	"github.com/mitchellh/mapstructure"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pump/analytics"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pump/analytics"
 	"github.com/vinllen/mgo"
 
 	"github.com/marmotedu/iam/pkg/log"

@@ -5,8 +5,8 @@
 package secret
 
 import (
-	srvv1 "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/apiserver/service/v1"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/apiserver/store"
+	srvv1 "github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/service/v1"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/store"
 )
 
 // SecretController create a secret handler used to handle request for secret resource.

@@ -12,8 +12,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/marmotedu/component-base/pkg/core"
 	"github.com/marmotedu/errors"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/code"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/middleware"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/code"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/middleware"
 )
 
 // Defined errors.

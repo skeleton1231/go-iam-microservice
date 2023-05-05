@@ -10,7 +10,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/iamctl/util/templates"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/iamctl/util/templates"
 )
 
 var optionsExample = templates.Examples(`

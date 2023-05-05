@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pump/analytics"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pump/analytics"
 )
 
 type Pump interface {

@@ -11,8 +11,8 @@ import (
 	metav1 "github.com/marmotedu/component-base/pkg/meta/v1"
 	"github.com/marmotedu/errors"
 	"github.com/marmotedu/iam/pkg/log"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/code"
-	"github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pkg/middleware"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/code"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/middleware"
 )
 
 // Update update a key by the secret key identifier.

@@ -4,7 +4,7 @@
 
 package pumps
 
-import "github.com/skeleton1231/go-gin-restful-api-boilerplate/internal/pump/analytics"
+import "github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pump/analytics"
 
 // CommonPumpConfig defines common options used by all persistent store, like elasticsearch, kafka, mongo and etc.
 type CommonPumpConfig struct {
