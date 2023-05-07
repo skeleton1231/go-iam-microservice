@@ -13,5 +13,5 @@ type ItemStore interface {
 	Update(ctx context.Context, item *v1.Item, opts metav1.UpdateOptions) error
 	Delete(ctx context.Context, id int, opts metav1.DeleteOptions) error
 	Get(ctx context.Context, id int, opts metav1.GetOptions) (*v1.Item, error)
-	//List(ctx context.Context, opts metav1.ListOptions) (*v1.ItemList, error)
+	List(ctx context.Context, opts metav1.ListOptions) (*v1.ItemList, error)
 }

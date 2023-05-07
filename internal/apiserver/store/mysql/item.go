@@ -7,6 +7,7 @@ import (
 	"github.com/marmotedu/errors"
 	v1 "github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/item/v1/model"
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/code"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/util/gormutil"
 	"gorm.io/gorm"
 )
 
@@ -58,23 +59,20 @@ func (i *items) Get(ctx context.Context, id int, opts metav1.GetOptions) (*v1.It
 }
 
 // List returns all items.
-// func (i *items) List(ctx context.Context, opts metav1.ListOptions) ([]*v1.ItemList, error) {
-// 	ret := []*v1.ItemList{}
-// 	ol := gormutil.Unpointer(opts.Offset, opts.Limit)
+func (i *items) List(ctx context.Context, opts metav1.ListOptions) (*v1.ItemList, error) {
+	ret := &v1.ItemList{}
+	ol := gormutil.Unpointer(opts.Offset, opts.Limit)
 
-// 	d := i.db.Offset(ol.Offset).
-// 		Limit(ol.Limit).
-// 		Order("id desc").
-// 		Preload("ItemAttributes").
-// 		Preload("ItemImage").
-// 		Preload("ItemSummaryByMarketplace").
-// 		Preload("Issue").
-// 		Preload("ItemOfferByMarketplace").
-// 		Preload("ItemProcurement").
-// 		Find(&ret).
-// 		Offset(-1).
-// 		Limit(-1).
-// 		Count()
+	where := v1.Item{}
 
-// 	return ret, d.Error
-// }
+	d := i.db.Where(where).
+		Offset(ol.Offset).
+		Limit(ol.Limit).
+		Order("id desc").
+		Find(&ret.Items).
+		Offset(-1).
+		Limit(-1).
+		Count(&ret.TotalCount)
+
+	return ret, d.Error
+}
