@@ -1,9 +1,34 @@
 package model
 
-import "time"
+import (
+	"time"
+
+	metav1 "github.com/marmotedu/component-base/pkg/meta/v1"
+)
+
+type ItemWithDetails struct {
+	Item                     Item
+	ItemAttributes           ItemAttributes
+	ItemImage                ItemImage
+	ItemSummaryByMarketplace ItemSummaryByMarketplace
+	Issue                    Issue
+	ItemOfferByMarketplace   ItemOfferByMarketplace
+	ItemProcurement          ItemProcurement
+}
+
+type ItemList struct {
+	// May add TypeMeta in the future.
+	// metav1.TypeMeta `json:",inline"`
+
+	// Standard list metadata.
+	// +optional
+	metav1.ListMeta `json:",inline"`
+
+	Items []*ItemWithDetails `json:"items"`
+}
 
 type Item struct {
-	ID           int       `json:"id"`
+	ID           int       `gorm:"primaryKey" json:"id"`
 	ASIN         string    `json:"asin"`
 	SKU          string    `json:"sku"`
 	Brand        string    `json:"brand"`
@@ -15,7 +40,7 @@ type Item struct {
 }
 
 type ItemAttributes struct {
-	ID                    int       `json:"id"`
+	ID                    int       `gorm:"primaryKey" json:"id"`
 	ItemID                int       `json:"item_id"`
 	Binding               string    `json:"binding"`
 	ItemHeight            float64   `json:"item_height"`
@@ -34,7 +59,7 @@ type ItemAttributes struct {
 }
 
 type ItemImage struct {
-	ID        int       `json:"id"`
+	ID        int       `gorm:"primaryKey" json:"id"`
 	ItemID    int       `json:"item_id"`
 	ImageURL  string    `json:"image_url"`
 	CreatedAt time.Time `json:"created_at"`
@@ -42,7 +67,7 @@ type ItemImage struct {
 }
 
 type ItemSummaryByMarketplace struct {
-	ID            int       `json:"id"`
+	ID            int       `gorm:"primaryKey" json:"id"`
 	ItemID        int       `json:"item_id"`
 	MarketplaceID string    `json:"marketplace_id"`
 	SalesRank     int       `json:"sales_rank"`
@@ -52,7 +77,7 @@ type ItemSummaryByMarketplace struct {
 }
 
 type Issue struct {
-	ID        int       `json:"id"`
+	ID        int       `gorm:"primaryKey" json:"id"`
 	ItemID    int       `json:"item_id"`
 	Code      string    `json:"code"`
 	Message   string    `json:"message"`
@@ -62,7 +87,7 @@ type Issue struct {
 }
 
 type ItemOfferByMarketplace struct {
-	ID                 int       `json:"id"`
+	ID                 int       `gorm:"primaryKey" json:"id"`
 	ItemID             int       `json:"item_id"`
 	MarketplaceID      string    `json:"marketplace_id"`
 	ListPrice          float64   `json:"list_price"`
@@ -75,19 +100,10 @@ type ItemOfferByMarketplace struct {
 }
 
 type ItemProcurement struct {
-	ID                    int       `json:"id"`
+	ID                    int       `gorm:"primaryKey" json:"id"`
 	ItemID                int       `json:"item_id"`
 	ExternalProductID     string    `json:"external_product_id"`
 	ExternalProductIDType string    `json:"external_product_id_type"`
 	CreatedAt             time.Time `json:"created_at"`
 	UpdatedAt             time.Time `json:"updated_at"`
-}
-
-type FulfillmentAvailability struct {
-	ID                  int       `json:"id"`
-	OfferID             int       `json:"offer_id"`
-	FulfillmentCenterID string    `json:"fulfillment_center_id"`
-	QuantityAvailable   int       `json:"quantity_available"`
-	CreatedAt           time.Time `json:"created_at"`
-	UpdatedAt           time.Time `json:"updated_at"`
 }
