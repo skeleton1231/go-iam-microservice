@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/marmotedu/component-base/pkg/core"
 	"github.com/marmotedu/errors"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/controller/v1/item"
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/controller/v1/policy"
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/controller/v1/secret"
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/controller/v1/user"
@@ -79,6 +80,18 @@ func installController(g *gin.Engine) *gin.Engine {
 			secretv1.PUT(":name", secretController.Update)
 			secretv1.GET("", secretController.List)
 			secretv1.GET(":name", secretController.Get)
+		}
+
+		// item RESTful resource
+		itemv1 := v1.Group("/items")
+		{
+			itemController := item.NewItemController(storeIns)
+
+			itemv1.POST("", itemController.Create)
+			itemv1.DELETE(":itemID", itemController.Delete)
+			itemv1.PUT(":itemID", itemController.Update)
+			itemv1.GET("", itemController.List)
+			itemv1.GET(":itemID", itemController.Get)
 		}
 	}
 
