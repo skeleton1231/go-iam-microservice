@@ -14,6 +14,7 @@ type Factory interface {
 	Secrets() SecretStore
 	Policies() PolicyStore
 	PolicyAudits() PolicyAuditStore
+	Items() ItemStore
 
 	Close() error
 }
