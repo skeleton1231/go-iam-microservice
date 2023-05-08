@@ -13,6 +13,7 @@ type Service interface {
 	Users() UserSrv
 	Secrets() SecretSrv
 	Policies() PolicySrv
+	Items() ItemSrv
 }
 
 type service struct {
@@ -36,4 +37,8 @@ func (s *service) Secrets() SecretSrv {
 
 func (s *service) Policies() PolicySrv {
 	return newPolicies(s)
+}
+
+func (s *service) Items() ItemSrv {
+	return newItems(s)
 }
