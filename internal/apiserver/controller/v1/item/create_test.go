@@ -15,16 +15,16 @@ import (
 	"github.com/stretchr/testify/mock"
 )
 
-func (m *MockItemService) Create(ctx *gin.Context, item *model.Item) error {
-	args := m.Called(ctx, item)
-	return args.Error(0)
-}
-
 func TestCreateItemController(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 
+	mockFactory := new(store.MockFactory)
+	mockItemStore := new(store.MockItemStore)
+	mockFactory.On("Item").Return(mockItemStore)
+	mockFactory.On("Close").Return(nil)
+
 	mockService := new(v1.MockService)
-	mockItemService := new(MockItemService)
+	mockItemService := new(v1.MockItemService)
 	mockService.On("Item").Return(mockItemService)
 
 	item := &model.Item{
@@ -39,13 +39,10 @@ func TestCreateItemController(t *testing.T) {
 	w := httptest.NewRecorder()
 
 	r := gin.Default()
-	mockFactory := new(store.MockFactory)
-	mockItemStore := new(store.MockItemStore)
-	mockFactory.On("Item").Return(mockItemStore)
-
 	r.POST("/api/v1/items", NewItemController(mockFactory).Create)
 
 	r.ServeHTTP(w, req)
 
 	assert.Equal(t, http.StatusCreated, w.Code)
+
 }

@@ -24,9 +24,34 @@ type MockFactory struct {
 	mock.Mock
 }
 
-func (m *MockFactory) Item() ItemStore {
+func (m *MockFactory) Items() ItemStore {
 	args := m.Called()
 	return args.Get(0).(ItemStore)
+}
+
+func (m *MockFactory) Close() error {
+	args := m.Called()
+	return args.Error(0)
+}
+
+func (m *MockFactory) Users() UserStore {
+	args := m.Called()
+	return args.Get(0).(UserStore)
+}
+
+func (m *MockFactory) Secrets() SecretStore {
+	args := m.Called()
+	return args.Get(0).(SecretStore)
+}
+
+func (m *MockFactory) Policies() PolicyStore {
+	args := m.Called()
+	return args.Get(0).(PolicyStore)
+}
+
+func (m *MockFactory) PolicyAudits() PolicyAuditStore {
+	args := m.Called()
+	return args.Get(0).(PolicyAuditStore)
 }
 
 type MockItemStore struct {
