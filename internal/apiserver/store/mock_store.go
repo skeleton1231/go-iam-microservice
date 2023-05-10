@@ -1,6 +1,7 @@
 // Copyright 2023 Tal Huang <talhuang1231@gmail.com>. All rights reserved.
 // Use of this source code is governed by a MIT style
 // license that can be found in the LICENSE file.
+
 /*
 mockFactory := new(MockFactory)
 mockItemStore := new(MockItemStore)
@@ -24,14 +25,14 @@ type MockFactory struct {
 	mock.Mock
 }
 
-func (m *MockFactory) Items() ItemStore {
-	args := m.Called()
-	return args.Get(0).(ItemStore)
-}
-
 func (m *MockFactory) Close() error {
 	args := m.Called()
 	return args.Error(0)
+}
+
+func (m *MockFactory) Items() ItemStore {
+	args := m.Called()
+	return args.Get(0).(ItemStore)
 }
 
 func (m *MockFactory) Users() UserStore {
