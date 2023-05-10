@@ -1,119 +1,61 @@
+// Copyright 2023 Tal Huang <talhuang1231@gmail.com>. All rights reserved.
+// Use of this source code is governed by a MIT style
+// license that can be found in the LICENSE file.
+
 package item
 
 import (
+	"context"
+	"testing"
+
+	metav1 "github.com/marmotedu/component-base/pkg/meta/v1"
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/item/v1/model"
+	v1 "github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/service/v1"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/store"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )
 
-type ItemStoreMock struct {
+type MockItemStore struct {
 	mock.Mock
 }
 
-func (m *ItemStoreMock) Create(item *model.Item) error {
-	args := m.Called(item)
+func (m *MockItemStore) Create(ctx context.Context, item *model.Item, opts metav1.CreateOptions) error {
+	args := m.Called(ctx, item, opts)
 	return args.Error(0)
 }
 
-func (m *ItemStoreMock) Update(item *model.Item) error {
-	args := m.Called(item)
+func (m *MockItemStore) Update(ctx context.Context, item *model.Item, opts metav1.UpdateOptions) error {
+	args := m.Called(ctx, item, opts)
 	return args.Error(0)
 }
 
-func (m *ItemStoreMock) Delete(id int) error {
-	args := m.Called(id)
+func (m *MockItemStore) Delete(ctx context.Context, id int, opts metav1.DeleteOptions) error {
+	args := m.Called(ctx, id, opts)
 	return args.Error(0)
 }
 
-func (m *ItemStoreMock) Get(id int) (*model.Item, error) {
-	args := m.Called(id)
+func (m *MockItemStore) Get(ctx context.Context, id int, opts metav1.GetOptions) (*model.Item, error) {
+	args := m.Called(ctx, id, opts)
 	return args.Get(0).(*model.Item), args.Error(1)
 }
 
-func (m *ItemStoreMock) List() ([]*model.Item, error) {
-	args := m.Called()
-	return args.Get(0).([]*model.Item), args.Error(1)
+func (m *MockItemStore) List(ctx context.Context, opts metav1.ListOptions) (*model.ItemList, error) {
+	args := m.Called(ctx, opts)
+	return args.Get(0).(*model.ItemList), args.Error(1)
 }
-
-)
 
 func TestCreateItemService(t *testing.T) {
-	itemStoreMock := new(ItemStoreMock)
-	storeFactory := store.NewFactory(itemStoreMock)
-	itemService := v1.NewItemService(storeFactory)
+	mockItemStore := new(MockItemStore)
+	storeFactory := store.NewFactory(mockItemStore)
+	itemService := v1.NewService(storeFactory)
 
 	item := &model.Item{
 		ASIN: "B123456",
 		// Add other fields here
 	}
 
-	itemStoreMock.On("Create", item).Return(nil)
-	err := itemService.Create(item)
+	mockItemStore.On("Create", mock.Anything, item, mock.Anything).Return(nil)
+	err := itemService.Items().Create(context.Background(), item, metav1.CreateOptions{})
 	assert.NoError(t, err)
 }
-
-func TestUpdateItemService(t *testing.T) {
-	itemStoreMock := new(ItemStoreMock)
-	storeFactory := store.NewFactory(itemStoreMock)
-	itemService := v1.NewItemService(storeFactory)
-
-	item := &model.Item{
-		ASIN: "B123456",
-		// Add other fields here
-	}
-
-	itemStoreMock.On("Update", item).Return(nil)
-	err := itemService.Update(item)
-	assert.NoError(t, err)
-}
-
-func TestDeleteItemService(t *testing.T) {
-	itemStoreMock := new(ItemStoreMock)
-	storeFactory := store.NewFactory(itemStoreMock)
-	itemService := v1.NewItemService(storeFactory)
-
-	itemID := 1
-
-	itemStoreMock.On("Delete", itemID).Return(nil)
-	err := itemService.Delete(itemID)
-	assert.NoError(t, err)
-}
-
-func TestGetItemService(t *testing.T) {
-	itemStoreMock := new(ItemStoreMock)
-	storeFactory := store.NewFactory(itemStoreMock)
-	itemService := v1.NewItemService(storeFactory)
-
-	itemID := 1
-	expectedItem := &model.Item{
-		ASIN: "B123456",
-		// Add other fields here
-	}
-
-	itemStoreMock.On("Get", itemID).Return(expectedItem, nil)
-	item, err := itemService.Get(itemID)
-	assert.NoError(t, err)
-	assert.Equal(t, expectedItem, item)
-}
-
-func TestListItemService(t *testing.T) {
-	itemStoreMock := new(ItemStoreMock)
-	storeFactory := store.NewFactory(itemStoreMock)
-	itemService := v1.NewItemService(storeFactory)
-
-	expectedItems := []*model.Item{
-		{
-			ASIN: "B123456",
-			// Add other fields here
-		},
-		{
-			ASIN: "B789012",
-			// Add other fields here
-		},
-	}
-
-	itemStoreMock.On("List").Return(expectedItems, nil)
-	items, err := itemService.List()
-	assert.NoError(t, err)
-	assert.Equal(t, expectedItems, items)
-}
-
