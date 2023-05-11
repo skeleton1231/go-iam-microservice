@@ -12,6 +12,9 @@ import (
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/code"
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/middleware"
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/middleware/auth"
+
+	// custom gin validators.
+	_ "github.com/marmotedu/iam/pkg/validator"
 )
 
 func initRouter(g *gin.Engine) {
@@ -37,6 +40,7 @@ func installController(g *gin.Engine) *gin.Engine {
 
 	// v1 handlers, requiring authentication
 	storeIns, _ := mysql.GetMySQLFactoryOr(nil)
+
 	v1 := g.Group("/v1")
 	{
 		// user RESTful resource
@@ -81,12 +85,14 @@ func installController(g *gin.Engine) *gin.Engine {
 			secretv1.GET("", secretController.List)
 			secretv1.GET(":name", secretController.Get)
 		}
+	}
 
+	v2 := g.Group("/v2")
+	{
 		// item RESTful resource
-		itemv1 := v1.Group("/items")
+		itemv1 := v2.Group("/items")
 		{
 			itemController := item.NewItemController(storeIns)
-
 			itemv1.POST("", itemController.Create)
 			itemv1.DELETE(":itemID", itemController.Delete)
 			itemv1.PUT(":itemID", itemController.Update)

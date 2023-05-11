@@ -43,6 +43,10 @@ type Item struct {
 	UpdatedAt    time.Time `json:"updated_at"`
 }
 
+func (Item) TableName() string {
+	return "item" // specify the desired table name here
+}
+
 type ItemAttributes struct {
 	ID                    int       `gorm:"primaryKey" json:"id"`
 	ItemID                int       `json:"item_id"`
