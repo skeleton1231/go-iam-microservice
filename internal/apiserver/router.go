@@ -90,9 +90,10 @@ func installController(g *gin.Engine) *gin.Engine {
 	v2 := g.Group("/v2")
 	{
 		// item RESTful resource
-		itemv1 := v2.Group("/items")
+		itemv1 := v2.Group("/items", middleware.Publish())
 		{
 			itemController := item.NewItemController(storeIns)
+			itemv1.Use(auto.AuthFunc())
 			itemv1.POST("", itemController.Create)
 			itemv1.DELETE(":itemID", itemController.Delete)
 			itemv1.PUT(":itemID", itemController.Update)
