@@ -24,7 +24,7 @@ func TestCreateItemController(t *testing.T) {
 
 	mockFactory := new(store.MockFactory)
 	mockItemStore := new(store.MockItemStore)
-	mockFactory.On("Item").Return(mockItemStore)
+	mockFactory.On("Items").Return(mockItemStore) // Set the return value for Items method
 	mockFactory.On("Close").Return(nil)
 
 	mockService := new(v1.MockService)
@@ -36,7 +36,7 @@ func TestCreateItemController(t *testing.T) {
 		// Add other fields here
 	}
 
-	mockItemService.On("Create", mock.Anything, item).Return(nil)
+	mockItemStore.On("Create", mock.Anything, mock.AnythingOfType("*model.Item"), mock.AnythingOfType("v1.CreateOptions")).Return(nil)
 
 	data, _ := json.Marshal(item)
 	req, _ := http.NewRequest(http.MethodPost, "/api/v1/items", bytes.NewBuffer(data))
@@ -48,5 +48,4 @@ func TestCreateItemController(t *testing.T) {
 	r.ServeHTTP(w, req)
 
 	assert.Equal(t, http.StatusCreated, w.Code)
-
 }

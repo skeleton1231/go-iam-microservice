@@ -1,7 +1,6 @@
 // Copyright 2023 Tal Huang <talhuang1231@gmail.com>. All rights reserved.
 // Use of this source code is governed by a MIT style
 // license that can be found in the LICENSE file.
-
 package item
 
 import (
@@ -37,9 +36,9 @@ func (i *ItemController) getFilteredItems(opts options.FilteredListOptions) (*v1
 		return nil, err
 	}
 
-	filteredItems := &v1.ItemList{Items: []*v1.ItemWithDetails{}}
+	filteredItems := &v1.ItemList{Items: []*v1.Item{}}
 	for _, item := range items.Items {
-		if i.shouldIncludeItem(item.Item, opts.Filter) {
+		if i.shouldIncludeItem(item, opts.Filter) {
 			filteredItems.Items = append(filteredItems.Items, item)
 		}
 	}
@@ -47,7 +46,7 @@ func (i *ItemController) getFilteredItems(opts options.FilteredListOptions) (*v1
 	return filteredItems, nil
 }
 
-func (i *ItemController) shouldIncludeItem(item v1.Item, filter string) bool {
+func (i *ItemController) shouldIncludeItem(item *v1.Item, filter string) bool {
 	if filter == "" {
 		return true
 	}

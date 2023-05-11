@@ -28,7 +28,7 @@ type ItemList struct {
 	// +optional
 	metav1.ListMeta `json:",inline"`
 
-	Items []*ItemWithDetails `json:"items"`
+	Items []*Item `json:"items"`
 }
 
 type Item struct {
