@@ -22,12 +22,6 @@ func (ic *ItemController) Update(c *gin.Context) {
 
 	itemID, _ := strconv.Atoi(c.Param("itemID"))
 
-	var newItem v1.Item
-	if err := c.ShouldBindJSON(&newItem); err != nil {
-		core.WriteResponse(c, errors.WithCode(code.ErrBind, err.Error()), nil)
-		return
-	}
-
 	item, err := ic.srv.Items().Get(c, itemID, metav1.GetOptions{})
 
 	if err != nil {
@@ -35,14 +29,24 @@ func (ic *ItemController) Update(c *gin.Context) {
 		return
 	}
 
-	newItem.ID = item.ID
+	var newItem v1.Item
+
+	if err := c.ShouldBindJSON(&newItem); err != nil {
+		core.WriteResponse(c, errors.WithCode(code.ErrBind, err.Error()), nil)
+		return
+	}
+
+	item.ProductGroup = newItem.ProductGroup
+	item.ProductType = newItem.ProductType
+	item.Title = newItem.Title
+	item.Brand = newItem.Brand
 
 	// Save changed fields.
-	if err := ic.srv.Items().Update(c, &newItem, metav1.UpdateOptions{}); err != nil {
+	if err := ic.srv.Items().Update(c, item, metav1.UpdateOptions{}); err != nil {
 		core.WriteResponse(c, err, nil)
 		return
 	}
 
-	core.WriteResponse(c, nil, newItem)
+	core.WriteResponse(c, nil, item)
 
 }
