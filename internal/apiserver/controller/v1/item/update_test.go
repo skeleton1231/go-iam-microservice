@@ -38,6 +38,9 @@ func TestUpdateItemController(t *testing.T) {
 		// Add other fields here
 	}
 
+	// Configure the expected behavior for the Get method
+	mockItemStore.On("Get", mock.Anything, mock.Anything, mock.Anything).Return(item, nil)
+
 	mockItemStore.On("Update", mock.Anything, mock.AnythingOfType("*model.Item"), mock.AnythingOfType("v1.UpdateOptions")).Return(nil)
 
 	data, _ := json.Marshal(item)
