@@ -31,18 +31,29 @@ type ItemList struct {
 	Items []*Item `json:"items"`
 }
 
+//	type Item struct {
+//		ID           int    `gorm:"primaryKey" json:"id"`
+//		ASIN         string `json:"asin"`
+//		SKU          string `json:"sku"`
+//		Brand        string `json:"brand"`
+//		Title        string `json:"title"`
+//		ProductGroup string `json:"product_group"`
+//		ProductType  string `json:"product_type"`
+//		// CreatedAt    time.Time `json:"created_at"`
+//		// UpdatedAt    time.Time `json:"updated_at"`
+//		CreatedAt time.Time `gorm:"-" json:"created_at"`
+//		UpdatedAt time.Time `gorm:"autoUpdateTime" json:"updated_at"`
+//	}
 type Item struct {
-	ID           int    `gorm:"primaryKey" json:"id"`
+	// Standard object's metadata.
+	metav1.ObjectMeta `json:"metadata,omitempty"`
+
 	ASIN         string `json:"asin"`
 	SKU          string `json:"sku"`
 	Brand        string `json:"brand"`
 	Title        string `json:"title"`
 	ProductGroup string `json:"product_group"`
 	ProductType  string `json:"product_type"`
-	// CreatedAt    time.Time `json:"created_at"`
-	// UpdatedAt    time.Time `json:"updated_at"`
-	CreatedAt *time.Time `gorm:"autoCreateTime" json:"-"`
-	UpdatedAt time.Time  `gorm:"autoUpdateTime" json:"updated_at"`
 }
 
 func (Item) TableName() string {

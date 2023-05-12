@@ -24,12 +24,10 @@ func TestListItemController(t *testing.T) {
 	itemList := &model.ItemList{
 		Items: []*model.Item{
 			{
-				ID:    1000000000,
 				ASIN:  "B09XN3WCVG",
 				Title: "Item 1",
 			},
 			{
-				ID:    1000000001,
 				ASIN:  "B09XN3WCVH",
 				Title: "Item 2",
 			},

@@ -5,30 +5,44 @@
 package item
 
 import (
-	"net/http"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	"github.com/marmotedu/component-base/pkg/core"
 	metav1 "github.com/marmotedu/component-base/pkg/meta/v1"
+	"github.com/marmotedu/errors"
 	v1 "github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/item/v1/model"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/code"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/log"
 )
 
 // Update updates an item by its ID.
 func (ic *ItemController) Update(c *gin.Context) {
+	log.L(c).Info("update item function called.")
+
 	itemID, _ := strconv.Atoi(c.Param("itemID"))
 
-	var item v1.Item
-	if err := c.ShouldBindJSON(&item); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	var newItem v1.Item
+	if err := c.ShouldBindJSON(&newItem); err != nil {
+		core.WriteResponse(c, errors.WithCode(code.ErrBind, err.Error()), nil)
 		return
 	}
 
-	item.ID = itemID
+	item, err := ic.srv.Items().Get(c, itemID, metav1.GetOptions{})
 
-	if err := ic.srv.Items().Update(c, &item, metav1.UpdateOptions{}); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+	if err != nil {
+		core.WriteResponse(c, err, nil)
 		return
 	}
 
-	c.JSON(http.StatusOK, item)
+	newItem.ID = item.ID
+
+	// Save changed fields.
+	if err := ic.srv.Items().Update(c, &newItem, metav1.UpdateOptions{}); err != nil {
+		core.WriteResponse(c, err, nil)
+		return
+	}
+
+	core.WriteResponse(c, nil, newItem)
+
 }

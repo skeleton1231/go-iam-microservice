@@ -33,7 +33,6 @@ func TestGetItemController(t *testing.T) {
 
 	itemID := 1000000000
 	mockItem := &model.Item{
-		ID:    itemID,
 		ASIN:  "B09XN3WCVG",
 		Title: "Item 1",
 	}

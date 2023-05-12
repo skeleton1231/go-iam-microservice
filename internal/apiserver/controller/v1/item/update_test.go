@@ -33,7 +33,6 @@ func TestUpdateItemController(t *testing.T) {
 	mockService.On("Item").Return(mockItemService)
 
 	item := &model.Item{
-		ID:    1000000000,
 		ASIN:  "B09XN3WCVG",
 		Title: "Bone Conduction Headphones, Bluetooth Wireless Running Headphone, Open Ear Earphone with Mic, Sweat Resistant Sport Headset for Running, Gym, Cycling, Walking, Workout, Hiking, Listening (Black)",
 		// Add other fields here
@@ -42,7 +41,7 @@ func TestUpdateItemController(t *testing.T) {
 	mockItemStore.On("Update", mock.Anything, mock.AnythingOfType("*model.Item"), mock.AnythingOfType("v1.UpdateOptions")).Return(nil)
 
 	data, _ := json.Marshal(item)
-	req, _ := http.NewRequest(http.MethodPut, "/api/v1/items/"+strconv.Itoa(item.ID), bytes.NewBuffer(data))
+	req, _ := http.NewRequest(http.MethodPut, "/api/v1/items/"+strconv.Itoa(int(item.ID)), bytes.NewBuffer(data))
 	w := httptest.NewRecorder()
 
 	r := gin.Default()
