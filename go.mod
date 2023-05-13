@@ -94,6 +94,7 @@ require (
 	github.com/appleboy/gin-jwt/v2 v2.9.1
 	github.com/avast/retry-go v3.0.0+incompatible
 	github.com/buger/jsonparser v1.1.1
+	github.com/bwmarrin/snowflake v0.3.0
 	github.com/dgraph-io/ristretto v0.1.1
 	github.com/dgrijalva/jwt-go/v4 v4.0.0-preview1
 	github.com/fatih/color v1.13.0
@@ -106,6 +107,7 @@ require (
 	github.com/go-redis/redis/v7 v7.4.1
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/goccy/go-json v0.10.0 // indirect
+	github.com/hitoshi44/go-uid64 v0.2.0
 	github.com/influxdata/influxdb v1.11.0
 	github.com/jinzhu/gorm v1.9.16
 	github.com/json-iterator/go v1.1.12 // indirect
