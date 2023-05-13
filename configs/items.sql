@@ -4,7 +4,7 @@
 
 -- Item table to store general product information
 CREATE TABLE Item (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
     asin VARCHAR(10) NOT NULL UNIQUE,
     sku VARCHAR(255) NOT NULL UNIQUE,
     brand VARCHAR(255),
@@ -17,8 +17,8 @@ CREATE TABLE Item (
 
 -- ItemAttributes table to store product attributes
 CREATE TABLE ItemAttributes (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    item_id INT,
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    item_id BIGINT,
     binding VARCHAR(255),
     item_height REAL,
     item_length REAL,
@@ -38,8 +38,8 @@ CREATE TABLE ItemAttributes (
 
 -- ItemImage table to store product images
 CREATE TABLE ItemImage (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    item_id INT,
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    item_id BIGINT,
     image_url VARCHAR(500),
     FOREIGN KEY (item_id) REFERENCES Item(id),
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -48,8 +48,8 @@ CREATE TABLE ItemImage (
 
 -- ItemSummaryByMarketplace table to store marketplace-specific summary information
 CREATE TABLE ItemSummaryByMarketplace (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    item_id INT,
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    item_id BIGINT,
     marketplace_id VARCHAR(255),
     sales_rank INT,
     main_image_url VARCHAR(500),
@@ -60,8 +60,8 @@ CREATE TABLE ItemSummaryByMarketplace (
 
 -- Issue table to store issue details
 CREATE TABLE Issue (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    item_id INT,
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    item_id BIGINT,
     code VARCHAR(255),
     message TEXT,
     severity VARCHAR(255),
@@ -72,8 +72,8 @@ CREATE TABLE Issue (
 
 -- ItemOfferByMarketplace table to store marketplace-specific offer information
 CREATE TABLE ItemOfferByMarketplace (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    item_id INT,
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    item_id BIGINT,
     marketplace_id VARCHAR(255),
     list_price REAL,
     currency_code VARCHAR(3),
@@ -87,8 +87,8 @@ CREATE TABLE ItemOfferByMarketplace (
 
 -- ItemProcurement table to store procurement information of a product
 CREATE TABLE ItemProcurement (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    item_id INT,
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    item_id BIGINT,
     external_product_id VARCHAR(255),
     external_product_id_type VARCHAR(50),
     FOREIGN KEY (item_id) REFERENCES Item(id),
