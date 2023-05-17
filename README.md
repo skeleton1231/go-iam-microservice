@@ -99,6 +99,46 @@ Here are some features and improvements that we plan to implement in the future:
 
 Feel free to contribute to the project or suggest new features and improvements by creating an issue or submitting a pull request.
 
+# Architecture
+
+Below is an overview of the project architecture, describing the purpose of each directory:
+
+- `CHANGELOG`: Contains a log of notable changes made to the project over time.
+- `CONTRIBUTING.md`: Provides guidelines for contributors to the project.
+- `LICENSE`: Contains the project's software license information.
+- `Makefile`: A file containing build and other automation recipes for the project.
+- `README.md`: Provides a high-level overview and documentation of the project.
+- `api`: Contains API-related files, such as API specifications or generated client code.
+- `build`: Stores build-related files, such as Dockerfiles, build scripts, or CI/CD pipeline configurations.
+- `cmd`: Contains the main entry points for the project's executables, such as `apiserver` and `authzserver`.
+- `configs`: Holds configuration files for various components of the project.
+- `deployments`: Contains deployment-related files, such as Kubernetes manifests or Helm charts.
+- `docs`: Stores project documentation, including guides, tutorials, or architectural diagrams.
+- `githooks`: Contains Git hooks used by the project.
+- `go.mod` and `go.sum`: Go module-related files that manage the project's dependencies.
+- `init`: Stores initialization files or scripts for setting up the project environment.
+- `internal`: Contains internal packages and components that are not meant to be used directly by external consumers.
+    - `apiserver`: Houses the API server's core components, such as app, auth, config, controller, grpc, item, options, router, run, server, service, and store.
+    - `authzserver`: Contains components related to the authorization server, such as analytics, app, authorization, config, controller, jwt, load, options, router, run, server, and store.
+    - `iamctl`: Holds command-line interface (CLI) components for the IAM control tool.
+    - `pkg`: Stores utility packages and shared components, such as code, logger, middleware, options, server, util, and validation.
+    - `pump`: Contains components for the pump service, which is responsible for data processing and analytics.
+    - `watcher`: Houses components for the watcher service, which monitors changes and updates to resources.
+- `pkg`: Contains external packages and components that can be used by other projects or services.
+    - `app`: Provides application-level components and utilities.
+    - `cli`: Contains CLI-related packages and utilities.
+    - `db`: Holds database-related components and utilities, such as MySQL and plugin.
+    - `log`: Provides logging-related packages and utilities.
+    - `shutdown`: Contains components for managing graceful shutdowns of applications and services.
+    - `storage`: Houses storage-related components and utilities, such as Redis cluster and storage.
+    - `util`: Contains various utility packages and components.
+    - `validator`: Provides validation-related components and utilities.
+- `test`: Contains test-related files, such as test data or test utilities.
+- `third_party`: Stores third-party dependencies or libraries used by the project.
+- `tools`: Contains tools or utilities used for development or management of the project.
+
+This project structure follows best practices for organizing and managing a Go-based project, with separate directories for different components, utilities, and services, making it easy to navigate and understand.
+
 # Contributing
 
 Contributions to the Go IAM E-Commerce Microservice are welcomed and appreciated. Please follow these steps to contribute:
