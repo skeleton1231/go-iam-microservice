@@ -41,6 +41,7 @@ type Item struct {
 	Title        string `json:"title"`
 	ProductGroup string `json:"product_group"`
 	ProductType  string `json:"product_type"`
+	Status       int    `json:"status"`
 }
 
 func (Item) TableName() string {

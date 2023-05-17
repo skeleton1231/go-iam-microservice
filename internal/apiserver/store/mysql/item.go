@@ -6,7 +6,9 @@ package mysql
 
 import (
 	"context"
+	"fmt"
 
+	"github.com/marmotedu/component-base/pkg/fields"
 	metav1 "github.com/marmotedu/component-base/pkg/meta/v1"
 	"github.com/marmotedu/errors"
 	v1 "github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/item/v1/model"
@@ -62,14 +64,34 @@ func (i *items) Get(ctx context.Context, id int, opts metav1.GetOptions) (*v1.It
 	return item, nil
 }
 
-// List returns all items.
 func (i *items) List(ctx context.Context, opts metav1.ListOptions) (*v1.ItemList, error) {
 	ret := &v1.ItemList{}
 	ol := gormutil.Unpointer(opts.Offset, opts.Limit)
 
-	where := v1.Item{}
+	selector, _ := fields.ParseSelector(opts.FieldSelector)
 
-	d := i.db.Where(where).
+	// Build the query
+	query := i.db.Where("status = 1")
+
+	for _, req := range selector.Requirements() {
+		switch req.Field {
+		case "asin":
+			query = query.Where("asin = ?", req.Value)
+		case "sku":
+			query = query.Where("sku = ?", req.Value)
+		case "brand":
+			query = query.Where("brand = ?", req.Value)
+		case "title":
+			query = query.Where("title LIKE ?", fmt.Sprintf("%%%s%%", req.Value))
+		case "product_group":
+			query = query.Where("product_group = ?", req.Value)
+		case "product_type":
+			query = query.Where("product_type = ?", req.Value)
+		}
+	}
+
+	// Execute the query
+	d := query.
 		Offset(ol.Offset).
 		Limit(ol.Limit).
 		Order("id desc").
