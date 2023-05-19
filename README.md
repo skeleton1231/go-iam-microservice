@@ -1,6 +1,49 @@
 # Go IAM E-Commerce Microservice
 
-This project is a Go-based IAM (Identity and Access Management) E-commerce microservice that provides a complete and scalable e-commerce solution, incorporating user management, product management, shopping cart management, logistics, finance, advertisements, and inventory management. The microservice is also designed to integrate with Amazon's APIs for further expansion and capabilities.
+Sure, here's how you can present the IAM system components in the context of your e-commerce application and the open-source libraries you've used:
+
+### IAM System Architecture
+
+IAM (Identity and Access Management) system plays a crucial role in managing the identities and access permissions within our e-commerce application. It ensures that the right users have access to the right resources at the right times for the right reasons.
+
+The IAM system architecture comprises 9 key components and 3 databases:
+
+#### Components
+
+1. **iam-apiserver**: It is the entry point for all the RESTful API requests. It handles the identity authentication and forwards authorization requests to the iam-authz-server.
+
+2. **iam-authz-server**: This component is responsible for all the authorization decisions. It evaluates the policies and provides a decision on whether access should be granted or not.
+
+3. **iam-pump**: It serves as the analytics engine for IAM. It processes and aggregates the raw analytics data and stores it in MongoDB for future analysis.
+
+4. **marmotedu-sdk-go**: This is the Golang SDK for communicating with IAM services. It makes it easier to interact with the IAM system programmatically.
+
+5. **iamctl**: It's a command-line tool for managing the IAM resources and components. It is used by administrators for system setup, configuration, and monitoring.
+
+6. **apiserver**: This is the entry point for the application's main API requests. It interacts with various services to handle business-related operations.
+
+7. **watcher**: It watches for changes in the data and updates the cache accordingly.
+
+8. **pump**: Similar to iam-pump, it processes and aggregates analytics data related to the application.
+
+#### Databases
+
+1. **Redis**: Used as a cache and message broker. It helps in achieving fast, temporary data storage and retrieval.
+2. **MySQL**: Used as the primary relational database for storing user and application data.
+3. **MongoDB**: Used for storing analytics data for long-term analysis and insights.
+
+### Open-Source Libraries
+
+Our project relies on a number of open-source libraries, including:
+
+- **[Gin](https://github.com/gin-gonic/gin)**: For building the RESTful APIs.
+- **[gRPC](https://grpc.io/)**: For efficient inter-service communication.
+- **[GORM](https://gorm.io/)**: As the ORM library for handling database operations.
+- **[Viper](https://github.com/spf13/viper)**: For handling application configuration.
+- **[Zap](https://github.com/uber-go/zap)**: For structured, leveled logging.
+- **[Redis](https://redis.io/)**, **[MySQL](https://www.mysql.com/)**, and **[MongoDB](https://www.mongodb.com/)**: For database operations.
+
+These libraries and services play a significant role in our IAM system, enabling it to provide robust, scalable, and secure identity and access management capabilities for our e-commerce application.
 
 ## Features
 
