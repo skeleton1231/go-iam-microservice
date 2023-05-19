@@ -21,6 +21,24 @@ To get started with the Go IAM E-Commerce Microservice, follow these steps:
 1. Clone the repository to your local machine.
 
 ```bash
+cd {your-project-path}/go-iam-ecommerce-microservice/cmd/apiserver
+go build
+./apiserver -c {config_path}
+```
+
+### Example:
+
+```bash
+(base) huanghaitao@huanghaitaodeMacBook-Pro apiserver % go build                                       
+(base) huanghaitao@huanghaitaodeMacBook-Pro apiserver % ./apiserver -c ../../configs/iam-apiserver.yaml
+2023-05-17 14:11:44.570 INFO    app/app.go:293  ==> WorkingDir: /Users/huanghaitao/go/src/go-iam-ecommerce-microservice/cmd/apiserver
+2023-05-17 14:11:44.574 INFO    app/app.go:252  ==> Starting IAM API Server ...
+2023-05-17 14:11:44.574 INFO    app/app.go:254  ==> Version: `{"gitVersion":"v0.0.0-master+$Format:%h$","gitCommit":"$Format:%H$","gitTreeState":"","buildDate":"1970-01-01T00:00:00Z","goVersion":"go1.19.1","compiler":"gc","platform":"darwin/amd64"}`
+2023-05-17 14:11:44.574 INFO    app/app.go:257  ==> Config file used: `../../configs/iam-apiserver.yaml`
+2023-05-17 14:11:44.574 INFO    app/app.go:285  ==> Config: `{"server":{"mode":"debug","healthz":true,"middlewares":["recovery","logger","secure","nocache","cors","dump"]},"grpc":{"bind-address":"127.0.0.1","bind-port":8081,"max-msg-size":4194304},"insecure":{"bind-address":"127.0.0.1","bind-port":8883},"secure":{"bind-address":"127.0.0.1","bind-port":8443,"Required":true,"tls":{"cert-key":{"cert-file":"/Users/huanghaitao/iam/etc/cert/iam-apiserver.pem","private-key-file":"/Users/huanghaitao/iam/etc/cert/iam-apiserver-key.pem"},"cert-dir":"/var/run/iam","pair-name":"iam"}},"mysql":{"host":"127.0.0.1:3306","username":"root","database":"iam","max-idle-connections":100,"max-open-connections":100,"max-connection-life-time":10000000000,"log-level":4},"redis":{"host":"127.0.0.1","port":6379,"addrs":[],"username":"","password":"MyN3wP4ssw0rd","database":0,"master-name":"","optimisation-max-idle":2000,"optimisation-max-active":4000,"timeout":0,"enable-cluster":false,"use-ssl":false,"ssl-insecure-skip-verify":false},"jwt":{"realm":"JWT","key":"dfVpOK8LZeJLZHYmHdb1VdyRrACKpqoo","timeout":86400000000000,"max-refresh":86400000000000},"log":{"output-paths":["/Users/huanghaitao/iam/log/iam-apiserver.log","stdout"],"error-output-paths":["/Users/huanghaitao/iam/log//iam-apiserver.error.log"],"level":"debug","format":"console","disable-caller":false,"disable-stacktrace":false,"enable-color":true,"development":true,"name":"apiserver"},"feature":{"profiling":true,"enable-metrics":true}}`
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:   export GIN_MODE=release
+ ...
 ```
 
 # Item Management API Documentation
