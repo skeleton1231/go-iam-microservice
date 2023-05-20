@@ -45,3 +45,54 @@ mockItemStore.On("Delete", mock.Anything, itemID, v1.DeleteOptions{}).Return(nil
 ```
 
 Both options should work, but the latter is more precise as it checks that the correct item ID is being passed to the `Delete` method.
+
+## ItemAttributes
+
+在这种情况下，你的curl命令应该像这样：
+
+1. 创建一个新的项目属性：
+   ```bash
+   curl -X POST -H "Content-Type: application/json" -H'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJpYW0uYXBpLm1hcm1vdGVkdS5jb20iLCJleHAiOjE2ODQ2NTk3ODgsImlkZW50aXR5IjoiYWRtaW4iLCJpc3MiOiJpYW0tYXBpc2VydmVyIiwib3JpZ19pYXQiOjE2ODQ1NzMzODgsInN1YiI6ImFkbWluIn0.9JQQYLFuhuIm1RG-OzsqJukU46U9vel6u0B96pHydYo' -d '{"item_id": 1657330406107648000, "binding": "Hardcover", "item_height": 23.5, "item_length": 15.0, "item_width": 1.5, "item_weight": 0.8, "item_dimensions_unit": "cm", "package_height": 25.0, "package_length": 16.5, "package_width": 2.0, "package_weight": 1.0, "package_dimensions_unit": "cm", "release_date": "2023-01-01T00:00:00Z"}' http://localhost:8080/api/v2/itemAttris
+   ```
+
+2. 更新一个已存在的项目属性：
+   ```bash
+   curl -X PUT -H "Content-Type: application/json" -d '{"item_id": 1, "binding": "Paperback", "item_height": 23.0, "item_length": 15.0, "item_width": 1.2, "item_weight": 0.7, "item_dimensions_unit": "cm", "package_height": 24.5, "package_length": 16.0, "package_width": 1.7, "package_weight": 0.9, "package_dimensions_unit": "cm", "release_date": "2023-01-02T00:00:00Z"}' http://localhost:8080/api/v2/itemAttris/1
+   ```
+
+3. 获取一个已存在的项目属性：
+   ```bash
+   curl -X GET -H'Content-Type: application/json' -H'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJpYW0uYXBpLm1hcm1vdGVkdS5jb20iLCJleHAiOjE2ODQwNTY5OTcsImlkZW50aXR5IjoiYWRtaW4iLCJpc3MiOiJpYW0tYXBpc2VydmVyIiwib3JpZ19pYXQiOjE2ODM5NzA1OTcsInN1YiI6ImFkbWluIn0.14Yb0ay5Cnsd96UXPu_AodX9E-9NLNVd6j8t-cnYjkI' http://localhost:8080/api/v2/itemAttris/1
+   ```
+
+4. 删除一个已存在的项目属性：
+   ```bash
+   curl -X DELETE http://localhost:8080/api/v2/itemAttris/1
+   ```
+
+模拟数据可能看起来像这样：
+
+```go
+// Mock Data
+mockItemAttris := []*v1.ItemAttributes{
+	{
+		ID:                    1,
+		ItemID:                1,
+		Binding:               "Hardcover",
+		ItemHeight:            23.5,
+		ItemLength:            15.0,
+		ItemWidth:             1.5,
+		ItemWeight:            0.8,
+		ItemDimensionsUnit:    "cm",
+		PackageHeight:         25.0,
+		PackageLength:         16.5,
+		PackageWidth:          2.0,
+		PackageWeight:         1.0,
+		PackageDimensionsUnit: "cm",
+		ReleaseDate:           time.Date(2023, 1, 1, 0, 0, 0, 0, time.UTC),
+		CreatedAt:             time.Now(),
+		UpdatedAt:             time.Now(),
+	},
+	// Add more items as necessary...
+}
+```

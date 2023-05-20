@@ -65,12 +65,20 @@ type ItemAttributes struct {
 	UpdatedAt             time.Time `json:"updatedAt,omitempty" gorm:"column:updatedAt"`
 }
 
+func (ItemAttributes) TableName() string {
+	return "itemattributes" // specify the desired table name here
+}
+
 type ItemImage struct {
 	ID        int       `gorm:"primaryKey" json:"id"`
 	ItemID    int       `json:"item_id"`
 	ImageURL  string    `json:"image_url"`
 	CreatedAt time.Time `json:"createdAt,omitempty" gorm:"column:createdAt"`
 	UpdatedAt time.Time `json:"updatedAt,omitempty" gorm:"column:updatedAt"`
+}
+
+func (ItemImage) TableName() string {
+	return "itemimage" // specify the desired table name here
 }
 
 type ItemSummaryByMarketplace struct {
@@ -83,6 +91,10 @@ type ItemSummaryByMarketplace struct {
 	UpdatedAt     time.Time `json:"updatedAt,omitempty" gorm:"column:updatedAt"`
 }
 
+func (ItemSummaryByMarketplace) TableName() string {
+	return "itemsummarybymarketplace" // specify the desired table name here
+}
+
 type Issue struct {
 	ID        int       `gorm:"primaryKey" json:"id"`
 	ItemID    int       `json:"item_id"`
@@ -91,6 +103,10 @@ type Issue struct {
 	Severity  string    `json:"severity"`
 	CreatedAt time.Time `json:"createdAt,omitempty" gorm:"column:createdAt"`
 	UpdatedAt time.Time `json:"updatedAt,omitempty" gorm:"column:updatedAt"`
+}
+
+func (Issue) TableName() string {
+	return "issue" // specify the desired table name here
 }
 
 type ItemOfferByMarketplace struct {
@@ -104,6 +120,10 @@ type ItemOfferByMarketplace struct {
 	FulfillmentChannel string    `json:"fulfillment_channel"`
 	CreatedAt          time.Time `json:"createdAt,omitempty" gorm:"column:createdAt"`
 	UpdatedAt          time.Time `json:"updatedAt,omitempty" gorm:"column:updatedAt"`
+}
+
+func (ItemOfferByMarketplace) TableName() string {
+	return "itemofferbymarketplace" // specify the desired table name here
 }
 
 // type ItemProcurement struct {
