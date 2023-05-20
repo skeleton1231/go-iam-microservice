@@ -9,7 +9,10 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	"github.com/marmotedu/component-base/pkg/core"
 	metav1 "github.com/marmotedu/component-base/pkg/meta/v1"
+	"github.com/marmotedu/errors"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/code"
 )
 
 // Get retrieves an item by its ID.
@@ -19,7 +22,7 @@ func (ic *ItemController) Get(c *gin.Context) {
 
 	item, err := ic.srv.Items().Get(c, itemID, metav1.GetOptions{})
 	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+		core.WriteResponse(c, errors.WithCode(code.ErrDatabase, err.Error()), nil)
 		return
 	}
 

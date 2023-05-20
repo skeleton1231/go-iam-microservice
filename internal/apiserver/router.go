@@ -90,16 +90,27 @@ func installController(g *gin.Engine) *gin.Engine {
 	v2 := g.Group("/v2")
 	{
 		// item RESTful resource
-		itemv1 := v2.Group("/items", middleware.Publish())
+		itemv2 := v2.Group("/items", middleware.Publish())
 		{
 			itemController := item.NewItemController(storeIns)
-			itemv1.Use(auto.AuthFunc())
-			itemv1.POST("", itemController.Create)
-			itemv1.DELETE(":itemID", itemController.Delete)
-			itemv1.PUT(":itemID", itemController.Update)
-			itemv1.GET("", itemController.List)
-			itemv1.GET(":itemID", itemController.Get)
+			itemv2.Use(auto.AuthFunc())
+			itemv2.POST("", itemController.Create)
+			itemv2.DELETE(":itemID", itemController.Delete)
+			itemv2.PUT(":itemID", itemController.Update)
+			itemv2.GET(":itemID", itemController.Get)
+			itemv2.GET("", itemController.List)
 		}
+
+		itemAtrriV2 := v2.Group("/itemAttris", middleware.Publish())
+		{
+			itemAttriController := item.NewItemAttributesController(storeIns)
+			itemAtrriV2.Use(auto.AuthFunc())
+			itemAtrriV2.POST("/", itemAttriController.Create)
+			itemAtrriV2.PUT("/:attributeID", itemAttriController.Update)
+			itemAtrriV2.GET("/:attributeID", itemAttriController.Get)
+			itemAtrriV2.DELETE("/:attributeID", itemAttriController.Delete)
+		}
+
 	}
 
 	return g

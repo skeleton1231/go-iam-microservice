@@ -11,20 +11,25 @@ import (
 	"github.com/bwmarrin/snowflake"
 	"github.com/gin-gonic/gin"
 
+	"github.com/marmotedu/component-base/pkg/core"
 	metav1 "github.com/marmotedu/component-base/pkg/meta/v1"
+	"github.com/marmotedu/errors"
 	v1 "github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/item/v1/model"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/code"
 )
 
 // Create creates a new item.
 func (ic *ItemController) Create(c *gin.Context) {
 	var item v1.Item
 	if err := c.ShouldBindJSON(&item); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		core.WriteResponse(c, errors.WithCode(code.ErrBind, err.Error()), nil)
+
 		return
 	}
 	node, err := snowflake.NewNode(1)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		core.WriteResponse(c, errors.WithCode(code.ErrEncrypt, err.Error()), nil)
+
 		return
 	}
 
@@ -37,7 +42,8 @@ func (ic *ItemController) Create(c *gin.Context) {
 	item.SKU = name
 
 	if err := ic.srv.Items().Create(c, &item, metav1.CreateOptions{}); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		core.WriteResponse(c, errors.WithCode(code.ErrDatabase, err.Error()), nil)
+
 		return
 	}
 

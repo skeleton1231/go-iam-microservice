@@ -1,3 +1,7 @@
+// Copyright 2023 Tal Huang <talhuang1231@gmail.com>. All rights reserved.
+// Use of this source code is governed by a MIT style
+// license that can be found in the LICENSE file.
+
 package v1
 
 import (
@@ -11,11 +15,13 @@ import (
 )
 
 // ItemAttributeSrv defines functions used to handle item attribute requests.
-type ItemAttributeSrv interface {
+type ItemAttributesSrv interface {
 	Create(ctx context.Context, itemAttribute *v1.ItemAttributes, opts metav1.CreateOptions) error
 	Update(ctx context.Context, itemAttribute *v1.ItemAttributes, opts metav1.UpdateOptions) error
 	Delete(ctx context.Context, id int, opts metav1.DeleteOptions) error
 	Get(ctx context.Context, id int, opts metav1.GetOptions) (*v1.ItemAttributes, error)
+	FindByAttributes(ctx context.Context, attributes *v1.ItemAttributes, opts metav1.ListOptions) (*v1.ItemList, error)
+
 	// List(ctx context.Context, opts metav1.ListOptions) (*v1.ItemAttributeList, error)
 }
 
@@ -23,7 +29,7 @@ type itemAttributeService struct {
 	store store.Factory
 }
 
-var _ ItemAttributeSrv = (*itemAttributeService)(nil)
+var _ ItemAttributesSrv = (*itemAttributeService)(nil)
 
 func newItemAttributes(srv *service) *itemAttributeService {
 	return &itemAttributeService{store: srv.store}
@@ -65,6 +71,16 @@ func (i *itemAttributeService) Get(ctx context.Context, id int, opts metav1.GetO
 	}
 
 	return itemAttribute, nil
+}
+
+// FindByAttributes retrieves a list of items that match the given item attributes.
+func (i *itemAttributeService) FindByAttributes(ctx context.Context, attributes *v1.ItemAttributes, opts metav1.ListOptions) (*v1.ItemList, error) {
+	items, err := i.store.ItemAttributes().FindByAttributes(ctx, attributes, opts)
+	if err != nil {
+		return nil, errors.WithCode(code.ErrDatabase, err.Error())
+	}
+
+	return items, nil
 }
 
 // List retrieves a list of item attributes from the storage.

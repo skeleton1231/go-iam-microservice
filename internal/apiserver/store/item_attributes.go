@@ -13,4 +13,5 @@ type ItemAttributesStore interface {
 	Update(ctx context.Context, itemAttribute *v1.ItemAttributes, opts metav1.UpdateOptions) error
 	Delete(ctx context.Context, id int, opts metav1.DeleteOptions) error
 	Get(ctx context.Context, id int, opts metav1.GetOptions) (*v1.ItemAttributes, error)
+	FindByAttributes(ctx context.Context, attributes *v1.ItemAttributes, opts metav1.ListOptions) (*v1.ItemList, error)
 }
