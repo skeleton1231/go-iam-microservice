@@ -35,6 +35,11 @@ func (m *MockFactory) Items() ItemStore {
 	return args.Get(0).(ItemStore)
 }
 
+func (m *MockFactory) ItemAttributes() ItemAttributesStore {
+	args := m.Called()
+	return args.Get(0).(ItemAttributesStore)
+}
+
 func (m *MockFactory) Users() UserStore {
 	args := m.Called()
 	return args.Get(0).(UserStore)
