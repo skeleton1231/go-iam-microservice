@@ -44,6 +44,10 @@ func (ds *datastore) Items() store.ItemStore {
 	return newItems(ds) // Make sure to implement this function
 }
 
+func (ds *datastore) ItemAttributes() store.ItemAttributesStore {
+	return newItemAttributes(ds)
+}
+
 func (ds *datastore) Close() error {
 	db, err := ds.db.DB()
 	if err != nil {

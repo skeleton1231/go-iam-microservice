@@ -10,14 +10,12 @@ import (
 	metav1 "github.com/marmotedu/component-base/pkg/meta/v1"
 )
 
-type ItemWithDetails struct {
-	Item                     Item
-	ItemAttributes           ItemAttributes
-	ItemImage                ItemImage
-	ItemSummaryByMarketplace ItemSummaryByMarketplace
-	Issue                    Issue
-	ItemOfferByMarketplace   ItemOfferByMarketplace
-	ItemProcurement          ItemProcurement
+type ItemExtend struct {
+	ItemAttributes            []ItemAttributes           `gorm:"foreignKey:ItemID"`
+	ItemImages                []ItemImage                `gorm:"foreignKey:ItemID"`
+	ItemSummaryByMarketplaces []ItemSummaryByMarketplace `gorm:"foreignKey:ItemID"`
+	Issues                    []Issue                    `gorm:"foreignKey:ItemID"`
+	ItemOfferByMarketplaces   []ItemOfferByMarketplace   `gorm:"foreignKey:ItemID"`
 }
 
 type ItemList struct {
@@ -63,16 +61,16 @@ type ItemAttributes struct {
 	PackageWeight         float64   `json:"package_weight"`
 	PackageDimensionsUnit string    `json:"package_dimensions_unit"`
 	ReleaseDate           time.Time `json:"release_date"`
-	CreatedAt             time.Time `json:"created_at"`
-	UpdatedAt             time.Time `json:"updated_at"`
+	CreatedAt             time.Time `json:"createdAt,omitempty" gorm:"column:createdAt"`
+	UpdatedAt             time.Time `json:"updatedAt,omitempty" gorm:"column:updatedAt"`
 }
 
 type ItemImage struct {
 	ID        int       `gorm:"primaryKey" json:"id"`
 	ItemID    int       `json:"item_id"`
 	ImageURL  string    `json:"image_url"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
+	CreatedAt time.Time `json:"createdAt,omitempty" gorm:"column:createdAt"`
+	UpdatedAt time.Time `json:"updatedAt,omitempty" gorm:"column:updatedAt"`
 }
 
 type ItemSummaryByMarketplace struct {
@@ -81,8 +79,8 @@ type ItemSummaryByMarketplace struct {
 	MarketplaceID string    `json:"marketplace_id"`
 	SalesRank     int       `json:"sales_rank"`
 	MainImageURL  string    `json:"main_image_url"`
-	CreatedAt     time.Time `json:"created_at"`
-	UpdatedAt     time.Time `json:"updated_at"`
+	CreatedAt     time.Time `json:"createdAt,omitempty" gorm:"column:createdAt"`
+	UpdatedAt     time.Time `json:"updatedAt,omitempty" gorm:"column:updatedAt"`
 }
 
 type Issue struct {
@@ -91,8 +89,8 @@ type Issue struct {
 	Code      string    `json:"code"`
 	Message   string    `json:"message"`
 	Severity  string    `json:"severity"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
+	CreatedAt time.Time `json:"createdAt,omitempty" gorm:"column:createdAt"`
+	UpdatedAt time.Time `json:"updatedAt,omitempty" gorm:"column:updatedAt"`
 }
 
 type ItemOfferByMarketplace struct {
@@ -104,15 +102,15 @@ type ItemOfferByMarketplace struct {
 	PackageQuantity    int       `json:"package_quantity"`
 	AvailabilityStatus string    `json:"availability_status"`
 	FulfillmentChannel string    `json:"fulfillment_channel"`
-	CreatedAt          time.Time `json:"created_at"`
-	UpdatedAt          time.Time `json:"updated_at"`
+	CreatedAt          time.Time `json:"createdAt,omitempty" gorm:"column:createdAt"`
+	UpdatedAt          time.Time `json:"updatedAt,omitempty" gorm:"column:updatedAt"`
 }
 
-type ItemProcurement struct {
-	ID                    int       `gorm:"primaryKey" json:"id"`
-	ItemID                int       `json:"item_id"`
-	ExternalProductID     string    `json:"external_product_id"`
-	ExternalProductIDType string    `json:"external_product_id_type"`
-	CreatedAt             time.Time `json:"created_at"`
-	UpdatedAt             time.Time `json:"updated_at"`
-}
+// type ItemProcurement struct {
+// 	ID                    int       `gorm:"primaryKey" json:"id"`
+// 	ItemID                int       `json:"item_id"`
+// 	ExternalProductID     string    `json:"external_product_id"`
+// 	ExternalProductIDType string    `json:"external_product_id_type"`
+// 	CreatedAt             time.Time `json:"createdAt,omitempty" gorm:"column:createdAt"`
+// 	UpdatedAt             time.Time `json:"updatedAt,omitempty" gorm:"column:updatedAt"`
+// }

@@ -15,6 +15,7 @@ type Factory interface {
 	Policies() PolicyStore
 	PolicyAudits() PolicyAuditStore
 	Items() ItemStore
+	ItemAttributes() ItemAttributesStore
 
 	Close() error
 }
