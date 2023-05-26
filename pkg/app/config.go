@@ -94,3 +94,25 @@ func loadConfig(cfg string, defaultName string) {
 	}
 }
 */
+
+/*
+This Go code is part of the same CLI application package `app` and is primarily dealing with the configuration setup for the application.
+
+Here are some key functions and constants in the code:
+
+1. `configFlagName`: This constant is the name of the flag that will be used to specify the configuration file.
+
+2. `cfgFile`: A global variable that stores the path to the configuration file.
+
+3. `init()`: The `init` function is a special function in Go that gets called automatically when the package is imported. In this `init`, a command line flag is defined for specifying the path to the configuration file.
+
+4. `addConfigFlag`: This function adds a flag for the configuration file to a flag set and sets up Viper, a configuration solution for Go, for reading the application's configuration. It uses the application's basename to set up environment variable reading and sets up configuration file reading.
+
+5. `printConfig`: This function prints the loaded configuration items. The configuration items are loaded from the Viper instance and printed in a table format using the uitable package.
+
+6. `loadConfig`: This commented out function reads in the configuration file and environment variables.
+
+The code uses the Viper library to manage the application's configuration. Viper supports different types of configuration files (like JSON, YAML, etc.) and also environment variables. The code makes use of these features, allowing to set up the configuration with a configuration file and override it with environment variables.
+
+This code does not run on its own, it is part of a larger application where the `addConfigFlag` function will be called to set up the configuration.
+*/

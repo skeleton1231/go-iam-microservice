@@ -307,3 +307,25 @@ func addCmdTemplate(cmd *cobra.Command, namedFlagSets cliflag.NamedFlagSets) {
 		cliflag.PrintSections(cmd.OutOrStdout(), namedFlagSets, cols)
 	})
 }
+
+/*
+The file you've shared is a Go source code file that defines an `App` struct to encapsulate an application, its configuration, and its operation. This includes handling command-line arguments, configuring output, and running the application. The file also contains several methods for configuring the `App` struct and performing certain actions with it.
+
+Here are the main components:
+
+- **App structure**: The main structure of a CLI application. It contains fields like the name of the application, description, command-line options, a run function, and some flags that control the behavior of the application. For example, whether to print version or config information.
+
+- **Options**: There are several functions that return an `Option` type. These are used to modify the `App` structure in some way. For example, `WithOptions` sets the CLI options for the app, `WithRunFunc` sets a callback function to run when the app starts, `WithDescription` sets the app's description, `WithSilence` turns on/off printing startup information, version, and configuration.
+
+- **NewApp**: This function creates a new `App` instance. It takes an application name, binary name, and other options, and returns a new `App` instance. It also calls the `buildCommand` function to build the main command of the application.
+
+- **buildCommand**: This method builds the main `cobra.Command` for the application. It adds flags, sets output, and adds subcommands based on the configuration of the `App`.
+
+- **Run**: This method is used to launch the application. It executes the main `cobra.Command` and handles any errors that occur.
+
+- **runCommand**: This method is the run function for the main `cobra.Command`. It prints the working directory, command-line flags, version information if needed, unmarshals configuration from Viper, applies options rules, and then calls the `runFunc` if provided.
+
+- **applyOptionRules**: This function applies the rules to the provided options. It checks if the options implement certain interfaces (`CompleteableOptions` and `PrintableOptions`) and runs the corresponding methods. It also validates the options.
+
+Overall, this file is about constructing a CLI application with a standardized and customizable structure. It uses the Cobra and Viper libraries to handle command-line flags and configuration.
+*/

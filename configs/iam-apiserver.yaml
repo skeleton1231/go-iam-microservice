@@ -80,3 +80,15 @@ log:
 feature:
   enable-metrics: true # 开启 metrics, router:  /metrics
   profiling: true # 开启性能分析, 可以通过 <host>:<port>/debug/pprof/地址查看程序栈、线程等系统信息，默认值为 true
+
+# 文件存储配置
+fileStorage:
+  provider: S3
+  s3:
+    accessKeyId: your-access-key-id
+    secretAccessKey: your-secret-access-key
+    region: your-region
+    bucket: your-bucket
+  gcs:
+    serviceAccountKeyFile: /path/to/your/service-account-key.json
+    bucket: your-bucket

@@ -25,6 +25,7 @@ type Options struct {
 	JwtOptions              *genericoptions.JwtOptions             `json:"jwt"      mapstructure:"jwt"`
 	Log                     *log.Options                           `json:"log"      mapstructure:"log"`
 	FeatureOptions          *genericoptions.FeatureOptions         `json:"feature"  mapstructure:"feature"`
+	FileStorageOptions      *genericoptions.FileStorageOptions     `json:"file_storage" mapstructure:"file_storage"`
 }
 
 // NewOptions creates a new Options object with default parameters.
@@ -39,6 +40,7 @@ func NewOptions() *Options {
 		JwtOptions:              genericoptions.NewJwtOptions(),
 		Log:                     log.NewOptions(),
 		FeatureOptions:          genericoptions.NewFeatureOptions(),
+		FileStorageOptions:      genericoptions.NewFileStorageOptions(),
 	}
 
 	return &o
@@ -60,6 +62,7 @@ func (o *Options) Flags() (fss cliflag.NamedFlagSets) {
 	o.InsecureServing.AddFlags(fss.FlagSet("insecure serving"))
 	o.SecureServing.AddFlags(fss.FlagSet("secure serving"))
 	o.Log.AddFlags(fss.FlagSet("logs"))
+	o.FileStorageOptions.AddFlags(fss.FlagSet("file_storage"))
 
 	return fss
 }
