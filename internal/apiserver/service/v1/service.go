@@ -15,6 +15,7 @@ type Service interface {
 	Policies() PolicySrv
 	Items() ItemSrv
 	ItemAttributes() ItemAttributesSrv
+	ItemImage() ItemImageSrv
 }
 
 type service struct {
@@ -46,4 +47,8 @@ func (s *service) Items() ItemSrv {
 
 func (s *service) ItemAttributes() ItemAttributesSrv {
 	return newItemAttributes(s)
+}
+
+func (s *service) ItemImage() ItemImageSrv {
+	return newItemImages(s)
 }

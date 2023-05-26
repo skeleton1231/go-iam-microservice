@@ -12,6 +12,8 @@ curl -X PUT -H'Content-Type: application/json' -H'Authorization: Bearer eyJhbGci
 curl -X GET -H'Content-Type: application/json' -H'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJpYW0uYXBpLm1hcm1vdGVkdS5jb20iLCJleHAiOjE2ODQzODczMDksImlkZW50aXR5IjoiYWRtaW4iLCJpc3MiOiJpYW0tYXBpc2VydmVyIiwib3JpZ19pYXQiOjE2ODQzMDA5MDksInN1YiI6ImFkbWluIn0.i0ai2LpHzjJvM0lF9Ld8783LdF4Uilxlix1iKUoJdc0' "http://127.0.0.1:8883/v2/items?fieldSelector=brand=Puggini,title=headphones&offset=0&limit=10"
 
 
+curl -X GET -H'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJpYW0uYXBpLm1hcm1vdGVkdS5jb20iLCJleHAiOjE2ODQwNTY5OTcsImlkZW50aXR5IjoiYWRtaW4iLCJpc3MiOiJpYW0tYXBpc2VydmVyIiwib3JpZ19pYXQiOjE2ODM5NzA1OTcsInN1YiI6ImFkbWluIn0.14Yb0ay5Cnsd96UXPu_AodX9E-9NLNVd6j8t-cnYjkI' http://localhost:6000/data/tweets/finance/20230513/raw_0
+
 ```
 
 ## Instruction

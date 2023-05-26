@@ -48,6 +48,10 @@ func (ds *datastore) ItemAttributes() store.ItemAttributesStore {
 	return newItemAttributes(ds)
 }
 
+func (ds *datastore) ItemImage() store.ItemImageStore {
+	return newItemImages(ds)
+}
+
 func (ds *datastore) Close() error {
 	db, err := ds.db.DB()
 	if err != nil {
