@@ -16,16 +16,16 @@ import (
 	"google.golang.org/grpc/reflection"
 
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/config"
+	cachev1 "github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/controller/v1/cache"
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/store"
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/store/mysql"
-	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/shutdown"
-	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/shutdown/shutdownmanagers/posixsignal"
-
 	genericoptions "github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/options"
 	genericapiserver "github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/server"
-	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/storage"
 
-	cachev1 "github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/controller/v1/cache"
+	// file_storage "github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/file_storage"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/shutdown"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/shutdown/shutdownmanagers/posixsignal"
+	storage "github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/storage"
 )
 
 type apiServer struct {
@@ -137,6 +137,8 @@ func (c *completedExtraConfig) New() (*grpcAPIServer, error) {
 	grpcServer := grpc.NewServer(opts...)
 
 	storeIns, _ := mysql.GetMySQLFactoryOr(c.mysqlOptions)
+	// fileStorageIns, _ := file_storage.GetFileStorageFactoryOr(c.fileStorageOptions)
+
 	//storeIns, _ := etcd.GetEtcdFactoryOr(c.etcdOptions, nil)
 	store.SetClient(storeIns)
 	cacheIns, err := cachev1.GetCacheInsOr(storeIns)

@@ -1,6 +1,8 @@
 package apiserver
 
 import (
+	"fmt"
+
 	"github.com/gin-gonic/gin"
 	"github.com/marmotedu/component-base/pkg/core"
 	"github.com/marmotedu/errors"
@@ -13,6 +15,7 @@ import (
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/code"
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/middleware"
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/middleware/auth"
+	"github.com/spf13/viper"
 
 	// custom gin validators.
 	"github.com/marmotedu/iam/pkg/log"
@@ -120,7 +123,13 @@ func installController(g *gin.Engine) *gin.Engine {
 		// itemImage RESTful resource
 		itemImageV2 := v2.Group("/itemImages", middleware.Publish())
 		{
-			itemImageController, err := item.NewItemImageController(storeIns, options.NewOptions().FileStorageOptions)
+			fileStorageOptions := options.NewOptions().FileStorageOptions
+			err := viper.UnmarshalKey("fileStorage", &fileStorageOptions)
+			if err != nil {
+				fmt.Printf("Unable to decode into struct, %v", err)
+			}
+
+			itemImageController, err := item.NewItemImageController(storeIns, fileStorageOptions)
 			if err != nil {
 				log.Fatalf("Failed to create itemImageController: %v", err) // Handle this error according to your project's logging strategy
 			}

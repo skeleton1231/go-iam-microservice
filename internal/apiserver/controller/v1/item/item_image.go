@@ -1,6 +1,7 @@
 package item
 
 import (
+	"log"
 	"path/filepath"
 	"strconv"
 
@@ -23,7 +24,7 @@ type itemImageController struct {
 }
 
 func NewItemImageController(store store.Factory, storageOpts *options.FileStorageOptions) (*itemImageController, error) {
-
+	log.Printf("%+v\n", storageOpts)
 	fs, err := storage.GetFileStorageFactoryOr(storageOpts)
 	if err != nil {
 		return nil, err

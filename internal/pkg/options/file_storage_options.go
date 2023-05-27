@@ -44,7 +44,7 @@ type GCSOptions struct {
 // NewFileStorageOptions creates a 'zero' value instance.
 func NewFileStorageOptions() *FileStorageOptions {
 	return &FileStorageOptions{
-		Provider: "S3",
+		Provider: "s3",
 		S3Options: &S3Options{
 			AccessKeyID:     "",
 			SecretAccessKey: "",

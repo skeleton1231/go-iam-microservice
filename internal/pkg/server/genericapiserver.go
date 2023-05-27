@@ -16,11 +16,11 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/marmotedu/component-base/pkg/core"
 	"github.com/marmotedu/component-base/pkg/version"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/middleware"
 	ginprometheus "github.com/zsais/go-gin-prometheus"
 	"golang.org/x/sync/errgroup"
 
 	"github.com/marmotedu/iam/pkg/log"
-	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/middleware"
 )
 
 // GenericAPIServer contains state for an iam api server.

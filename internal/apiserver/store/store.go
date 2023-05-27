@@ -4,6 +4,8 @@
 
 package store
 
+// Make sure to replace the import path with your actual package import path
+
 //go:generate mockgen -self_package=github.com/marmotedu/iam/internal/apiserver/store -destination mock_store.go -package store github.com/marmotedu/iam/internal/apiserver/store Factory,UserStore,SecretStore,PolicyStore
 
 var client Factory
@@ -17,7 +19,6 @@ type Factory interface {
 	Items() ItemStore
 	ItemAttributes() ItemAttributesStore
 	ItemImage() ItemImageStore
-
 	Close() error
 }
 

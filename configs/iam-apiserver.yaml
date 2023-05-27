@@ -83,12 +83,9 @@ feature:
 
 # 文件存储配置
 fileStorage:
-  provider: S3
+  provider: s3
   s3:
-    accessKeyId: your-access-key-id
-    secretAccessKey: your-secret-access-key
-    region: your-region
-    bucket: your-bucket
-  gcs:
-    serviceAccountKeyFile: /path/to/your/service-account-key.json
-    bucket: your-bucket
+    accessKeyId: AKIAIOSFODNN7EXAMPLE
+    secretAccessKey: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+    region: us-west-2
+    bucket: mybucket
