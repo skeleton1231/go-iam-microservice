@@ -13,7 +13,8 @@ import (
 	srvv1 "github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/service/v1"
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/store"
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/code"
-	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/storage"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/options"
+	storage "github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/file_storage"
 )
 
 type itemImageController struct {
@@ -21,8 +22,9 @@ type itemImageController struct {
 	storage storage.FileStorage
 }
 
-func NewItemImageController(store store.Factory, storageCfg storage.StorageConfig) (*itemImageController, error) {
-	fs, err := storage.StorageFactory(storageCfg)
+func NewItemImageController(store store.Factory, storageOpts *options.FileStorageOptions) (*itemImageController, error) {
+
+	fs, err := storage.GetFileStorageFactoryOr(storageOpts)
 	if err != nil {
 		return nil, err
 	}
@@ -37,6 +39,13 @@ func (ctrl *itemImageController) Create(c *gin.Context) {
 	form, err := c.MultipartForm()
 	if err != nil {
 		core.WriteResponse(c, errors.WithCode(code.ErrBind, err.Error()), nil)
+		return
+	}
+
+	itemIDStr := c.Param("item_id")
+	itemID, err := strconv.Atoi(itemIDStr)
+	if err != nil {
+		core.WriteResponse(c, errors.WithCode(code.ErrUnknown, err.Error()), nil)
 		return
 	}
 
@@ -69,8 +78,8 @@ func (ctrl *itemImageController) Create(c *gin.Context) {
 
 		// Create a new item image
 		image := &model.ItemImage{
-			ID: int(imageID),
-			// Fill other fields
+			ID:       int(imageID),
+			ItemID:   itemID,
 			ImageURL: url,
 		}
 		err = ctrl.srv.ItemImage().Create(c, image, metav1.CreateOptions{})

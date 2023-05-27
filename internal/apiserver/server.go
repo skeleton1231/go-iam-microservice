@@ -46,6 +46,7 @@ type ExtraConfig struct {
 	ServerCert   genericoptions.GeneratableKeyCert
 	mysqlOptions *genericoptions.MySQLOptions
 	// etcdOptions      *genericoptions.EtcdOptions
+	fileStorageOptions *genericoptions.FileStorageOptions
 }
 
 func createAPIServer(cfg *config.Config) (*apiServer, error) {
@@ -179,6 +180,7 @@ func buildExtraConfig(cfg *config.Config) (*ExtraConfig, error) {
 		ServerCert:   cfg.SecureServing.ServerCert,
 		mysqlOptions: cfg.MySQLOptions,
 		// etcdOptions:      cfg.EtcdOptions,
+		fileStorageOptions: cfg.FileStorageOptions,
 	}, nil
 }
 

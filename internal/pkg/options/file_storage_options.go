@@ -1,6 +1,7 @@
 package options
 
 import (
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/file_storage/s3"
 	"github.com/spf13/pflag"
 )
 
@@ -18,6 +19,20 @@ type S3Options struct {
 	SecretAccessKey string `json:"secretAccessKey" mapstructure:"secretAccessKey" description:"Secret access key for Amazon S3"`
 	Region          string `json:"region"          mapstructure:"region"          description:"Region for Amazon S3"`
 	Bucket          string `json:"bucket"          mapstructure:"bucket"          description:"Bucket name for Amazon S3"`
+}
+
+// ToS3StorageConfig converts S3Options to s3.S3StorageConfig.
+func (opts *S3Options) ToS3StorageConfig() *s3.S3StorageConfig {
+	if opts == nil {
+		return nil
+	}
+
+	return &s3.S3StorageConfig{
+		AccessKeyID:     opts.AccessKeyID,
+		SecretAccessKey: opts.SecretAccessKey,
+		Region:          opts.Region,
+		Bucket:          opts.Bucket,
+	}
 }
 
 // GCSOptions defines configuration options for Google Cloud Storage.

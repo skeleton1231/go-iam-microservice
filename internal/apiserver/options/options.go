@@ -25,7 +25,7 @@ type Options struct {
 	JwtOptions              *genericoptions.JwtOptions             `json:"jwt"      mapstructure:"jwt"`
 	Log                     *log.Options                           `json:"log"      mapstructure:"log"`
 	FeatureOptions          *genericoptions.FeatureOptions         `json:"feature"  mapstructure:"feature"`
-	FileStorageOptions      *genericoptions.FileStorageOptions     `json:"file_storage" mapstructure:"file_storage"`
+	FileStorageOptions      *genericoptions.FileStorageOptions     `json:"fileStorage" mapstructure:"fileStorage"`
 }
 
 // NewOptions creates a new Options object with default parameters.

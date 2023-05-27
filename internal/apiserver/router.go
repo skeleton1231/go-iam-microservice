@@ -8,12 +8,14 @@ import (
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/controller/v1/policy"
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/controller/v1/secret"
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/controller/v1/user"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/options"
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/store/mysql"
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/code"
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/middleware"
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/middleware/auth"
 
 	// custom gin validators.
+	"github.com/marmotedu/iam/pkg/log"
 	_ "github.com/marmotedu/iam/pkg/validator"
 )
 
@@ -38,8 +40,12 @@ func installController(g *gin.Engine) *gin.Engine {
 		core.WriteResponse(c, errors.WithCode(code.ErrPageNotFound, "Page not found."), nil)
 	})
 
-	// v1 handlers, requiring authentication
 	storeIns, _ := mysql.GetMySQLFactoryOr(nil)
+
+	// _, err := storage.GetFileStorageFactoryOr(opts.FileStorageOptions)
+	// if err != nil {
+	// 	log.Fatalf("Failed to create file storage instance: %v", err)
+	// }
 
 	v1 := g.Group("/v1")
 	{
@@ -109,6 +115,21 @@ func installController(g *gin.Engine) *gin.Engine {
 			itemAtrriV2.PUT("/:attributeID", itemAttriController.Update)
 			itemAtrriV2.GET("/:attributeID", itemAttriController.Get)
 			itemAtrriV2.DELETE("/:attributeID", itemAttriController.Delete)
+		}
+
+		// itemImage RESTful resource
+		itemImageV2 := v2.Group("/itemImages", middleware.Publish())
+		{
+			itemImageController, err := item.NewItemImageController(storeIns, options.NewOptions().FileStorageOptions)
+			if err != nil {
+				log.Fatalf("Failed to create itemImageController: %v", err) // Handle this error according to your project's logging strategy
+			}
+			itemImageV2.Use(auto.AuthFunc())
+			itemImageV2.POST("/", itemImageController.Create)
+			itemImageV2.PUT("/:id", itemImageController.Update)
+			itemImageV2.GET("/:id", itemImageController.Get)
+			itemImageV2.DELETE("/:id", itemImageController.Delete)
+			itemImageV2.GET("/item/:item_id", itemImageController.List)
 		}
 
 	}
