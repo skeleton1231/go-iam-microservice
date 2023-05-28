@@ -106,6 +106,12 @@ func installController(g *gin.Engine) *gin.Engine {
 			itemv2.PUT(":itemID", itemController.Update)
 			itemv2.GET(":itemID", itemController.Get)
 			itemv2.GET("", itemController.List)
+
+			// Adding new route for item images
+			fileStorageOptions := options.NewOptions().FileStorageOptions
+			viper.UnmarshalKey("fileStorage", &fileStorageOptions)
+			itemImageController, _ := item.NewItemImageController(storeIns, fileStorageOptions)
+			itemv2.GET(":itemID/images", itemImageController.List)
 		}
 
 		itemAtrriV2 := v2.Group("/itemAttris", middleware.Publish())
@@ -138,7 +144,7 @@ func installController(g *gin.Engine) *gin.Engine {
 			itemImageV2.PUT(":id", itemImageController.Update)
 			itemImageV2.GET(":id", itemImageController.Get)
 			itemImageV2.DELETE(":id", itemImageController.Delete)
-			itemImageV2.GET("/item/:item_id", itemImageController.List)
+			// itemImageV2.GET("item/:item_id", itemImageController.List)
 			log.Info("item images initialized")
 		}
 
