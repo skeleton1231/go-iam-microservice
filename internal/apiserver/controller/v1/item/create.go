@@ -5,7 +5,6 @@
 package item
 
 import (
-	"net/http"
 	"strconv"
 
 	"github.com/bwmarrin/snowflake"
@@ -47,5 +46,5 @@ func (ic *ItemController) Create(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusCreated, item)
+	core.WriteResponse(c, nil, item)
 }

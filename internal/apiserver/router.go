@@ -1,8 +1,6 @@
 package apiserver
 
 import (
-	"fmt"
-
 	"github.com/gin-gonic/gin"
 	"github.com/marmotedu/component-base/pkg/core"
 	"github.com/marmotedu/errors"
@@ -114,31 +112,34 @@ func installController(g *gin.Engine) *gin.Engine {
 		{
 			itemAttriController := item.NewItemAttributesController(storeIns)
 			itemAtrriV2.Use(auto.AuthFunc())
-			itemAtrriV2.POST("/", itemAttriController.Create)
-			itemAtrriV2.PUT("/:attributeID", itemAttriController.Update)
-			itemAtrriV2.GET("/:attributeID", itemAttriController.Get)
-			itemAtrriV2.DELETE("/:attributeID", itemAttriController.Delete)
+			itemAtrriV2.POST("", itemAttriController.Create)
+			itemAtrriV2.PUT(":attributeID", itemAttriController.Update)
+			itemAtrriV2.GET(":attributeID", itemAttriController.Get)
+			itemAtrriV2.DELETE(":attributeID", itemAttriController.Delete)
 		}
 
 		// itemImage RESTful resource
 		itemImageV2 := v2.Group("/itemImages", middleware.Publish())
 		{
+
 			fileStorageOptions := options.NewOptions().FileStorageOptions
 			err := viper.UnmarshalKey("fileStorage", &fileStorageOptions)
 			if err != nil {
-				fmt.Printf("Unable to decode into struct, %v", err)
+				log.Errorf("Unable to decode into struct, %v", err)
 			}
 
 			itemImageController, err := item.NewItemImageController(storeIns, fileStorageOptions)
 			if err != nil {
-				log.Fatalf("Failed to create itemImageController: %v", err) // Handle this error according to your project's logging strategy
+				log.Errorf("Failed to create itemImageController: %v", err) // Handle this error according to your project's logging strategy
 			}
+
 			itemImageV2.Use(auto.AuthFunc())
-			itemImageV2.POST("/", itemImageController.Create)
-			itemImageV2.PUT("/:id", itemImageController.Update)
-			itemImageV2.GET("/:id", itemImageController.Get)
-			itemImageV2.DELETE("/:id", itemImageController.Delete)
+			itemImageV2.POST("", itemImageController.Create)
+			itemImageV2.PUT(":id", itemImageController.Update)
+			itemImageV2.GET(":id", itemImageController.Get)
+			itemImageV2.DELETE(":id", itemImageController.Delete)
 			itemImageV2.GET("/item/:item_id", itemImageController.List)
+			log.Info("item images initialized")
 		}
 
 	}

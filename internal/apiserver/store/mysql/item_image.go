@@ -31,7 +31,7 @@ func (i *itemImages) Update(ctx context.Context, itemImage *v1.ItemImage, opts m
 }
 
 // Delete deletes an item image by the image ID.
-func (i *itemImages) Delete(ctx context.Context, id int, opts metav1.DeleteOptions) error {
+func (i *itemImages) Delete(ctx context.Context, id uint64, opts metav1.DeleteOptions) error {
 	if opts.Unscoped {
 		i.db = i.db.Unscoped()
 	}
@@ -45,7 +45,7 @@ func (i *itemImages) Delete(ctx context.Context, id int, opts metav1.DeleteOptio
 }
 
 // Get returns an item image by the image ID.
-func (i *itemImages) Get(ctx context.Context, id int, opts metav1.GetOptions) (*v1.ItemImage, error) {
+func (i *itemImages) Get(ctx context.Context, id uint64, opts metav1.GetOptions) (*v1.ItemImage, error) {
 	itemImage := &v1.ItemImage{}
 	err := i.db.Where("id = ?", id).First(itemImage).Error
 	if err != nil {
@@ -61,7 +61,7 @@ func (i *itemImages) Get(ctx context.Context, id int, opts metav1.GetOptions) (*
 
 // store/mysql/itemimage.go
 
-func (s *itemImages) List(ctx context.Context, itemID int, opts metav1.ListOptions) ([]*v1.ItemImage, error) {
+func (s *itemImages) List(ctx context.Context, itemID uint64, opts metav1.ListOptions) ([]*v1.ItemImage, error) {
 	var itemImages []*v1.ItemImage
 	err := s.db.Where("item_id = ?", itemID).Find(&itemImages).Error
 	if err != nil {

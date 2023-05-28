@@ -11,7 +11,7 @@ import (
 type ItemImageStore interface {
 	Create(ctx context.Context, itemAttribute *v1.ItemImage, opts metav1.CreateOptions) error
 	Update(ctx context.Context, itemAttribute *v1.ItemImage, opts metav1.UpdateOptions) error
-	Delete(ctx context.Context, id int, opts metav1.DeleteOptions) error
-	Get(ctx context.Context, id int, opts metav1.GetOptions) (*v1.ItemImage, error)
-	List(ctx context.Context, itemID int, opts metav1.ListOptions) ([]*v1.ItemImage, error) // 添加这行
+	Delete(ctx context.Context, id uint64, opts metav1.DeleteOptions) error
+	Get(ctx context.Context, id uint64, opts metav1.GetOptions) (*v1.ItemImage, error)
+	List(ctx context.Context, itemID uint64, opts metav1.ListOptions) ([]*v1.ItemImage, error) // 添加这行
 }

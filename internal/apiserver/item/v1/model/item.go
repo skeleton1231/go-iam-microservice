@@ -47,8 +47,8 @@ func (Item) TableName() string {
 }
 
 type ItemAttributes struct {
-	ID                    int       `gorm:"primaryKey" json:"id"`
-	ItemID                int       `json:"item_id"`
+	ID                    uint64    `gorm:"primaryKey" json:"id"`
+	ItemID                uint64    `json:"item_id"`
 	Binding               string    `json:"binding"`
 	ItemHeight            float64   `json:"item_height"`
 	ItemLength            float64   `json:"item_length"`
@@ -70,8 +70,8 @@ func (ItemAttributes) TableName() string {
 }
 
 type ItemImage struct {
-	ID        int       `gorm:"primaryKey" json:"id"`
-	ItemID    int       `json:"item_id"`
+	ID        uint64    `gorm:"primaryKey" json:"id"`
+	ItemID    uint64    `json:"item_id"`
 	ImageURL  string    `json:"image_url"`
 	CreatedAt time.Time `json:"createdAt,omitempty" gorm:"column:createdAt"`
 	UpdatedAt time.Time `json:"updatedAt,omitempty" gorm:"column:updatedAt"`
@@ -82,8 +82,8 @@ func (ItemImage) TableName() string {
 }
 
 type ItemSummaryByMarketplace struct {
-	ID            int       `gorm:"primaryKey" json:"id"`
-	ItemID        int       `json:"item_id"`
+	ID            uint64    `gorm:"primaryKey" json:"id"`
+	ItemID        uint64    `json:"item_id"`
 	MarketplaceID string    `json:"marketplace_id"`
 	SalesRank     int       `json:"sales_rank"`
 	MainImageURL  string    `json:"main_image_url"`
@@ -97,7 +97,7 @@ func (ItemSummaryByMarketplace) TableName() string {
 
 type Issue struct {
 	ID        int       `gorm:"primaryKey" json:"id"`
-	ItemID    int       `json:"item_id"`
+	ItemID    uint64    `json:"item_id"`
 	Code      string    `json:"code"`
 	Message   string    `json:"message"`
 	Severity  string    `json:"severity"`
@@ -110,8 +110,8 @@ func (Issue) TableName() string {
 }
 
 type ItemOfferByMarketplace struct {
-	ID                 int       `gorm:"primaryKey" json:"id"`
-	ItemID             int       `json:"item_id"`
+	ID                 uint64    `gorm:"primaryKey" json:"id"`
+	ItemID             uint64    `json:"item_id"`
 	MarketplaceID      string    `json:"marketplace_id"`
 	ListPrice          float64   `json:"list_price"`
 	CurrencyCode       string    `json:"currency_code"`

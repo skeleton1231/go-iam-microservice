@@ -13,9 +13,9 @@ import (
 type ItemImageSrv interface {
 	Create(ctx context.Context, itemImage *model.ItemImage, opts metav1.CreateOptions) error
 	Update(ctx context.Context, itemImage *model.ItemImage, opts metav1.UpdateOptions) error
-	Delete(ctx context.Context, id int, opts metav1.DeleteOptions) error
-	Get(ctx context.Context, id int, opts metav1.GetOptions) (*model.ItemImage, error)
-	List(ctx context.Context, itemID int, opts metav1.ListOptions) ([]*model.ItemImage, error) // 添加这行
+	Delete(ctx context.Context, id uint64, opts metav1.DeleteOptions) error
+	Get(ctx context.Context, id uint64, opts metav1.GetOptions) (*model.ItemImage, error)
+	List(ctx context.Context, itemID uint64, opts metav1.ListOptions) ([]*model.ItemImage, error) // 添加这行
 
 }
 
@@ -37,14 +37,14 @@ func (s *itemImageService) Update(ctx context.Context, itemImage *model.ItemImag
 	return s.store.ItemImage().Update(ctx, itemImage, opts)
 }
 
-func (s *itemImageService) Delete(ctx context.Context, id int, opts metav1.DeleteOptions) error {
+func (s *itemImageService) Delete(ctx context.Context, id uint64, opts metav1.DeleteOptions) error {
 	return s.store.ItemImage().Delete(ctx, id, opts)
 }
 
-func (s *itemImageService) Get(ctx context.Context, id int, opts metav1.GetOptions) (*model.ItemImage, error) {
+func (s *itemImageService) Get(ctx context.Context, id uint64, opts metav1.GetOptions) (*model.ItemImage, error) {
 	return s.store.ItemImage().Get(ctx, id, opts)
 }
 
-func (s *itemImageService) List(ctx context.Context, itemID int, opts metav1.ListOptions) ([]*model.ItemImage, error) {
+func (s *itemImageService) List(ctx context.Context, itemID uint64, opts metav1.ListOptions) ([]*model.ItemImage, error) {
 	return s.store.ItemImage().List(ctx, itemID, opts)
 }

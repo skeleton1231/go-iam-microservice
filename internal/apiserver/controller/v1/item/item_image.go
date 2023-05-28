@@ -1,7 +1,6 @@
 package item
 
 import (
-	"log"
 	"path/filepath"
 	"strconv"
 
@@ -16,6 +15,7 @@ import (
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/code"
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/options"
 	storage "github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/file_storage"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/log"
 )
 
 type itemImageController struct {
@@ -24,9 +24,10 @@ type itemImageController struct {
 }
 
 func NewItemImageController(store store.Factory, storageOpts *options.FileStorageOptions) (*itemImageController, error) {
-	log.Printf("%+v\n", storageOpts)
+
 	fs, err := storage.GetFileStorageFactoryOr(storageOpts)
 	if err != nil {
+		log.Errorf("File storage configuration Error %v", err.Error())
 		return nil, err
 	}
 
@@ -38,19 +39,30 @@ func NewItemImageController(store store.Factory, storageOpts *options.FileStorag
 
 func (ctrl *itemImageController) Create(c *gin.Context) {
 	form, err := c.MultipartForm()
+	log.Infof("POSt FORM is %v", form)
 	if err != nil {
 		core.WriteResponse(c, errors.WithCode(code.ErrBind, err.Error()), nil)
 		return
 	}
 
-	itemIDStr := c.Param("item_id")
-	itemID, err := strconv.Atoi(itemIDStr)
+	var itemIDStr string
+	itemIDStrs, ok := form.Value["item_id"]
+	if ok && len(itemIDStrs) > 0 {
+		itemIDStr = itemIDStrs[0]
+		log.Infof("ItemIDstr is %v", itemIDStr)
+	} else {
+		log.Error("item_id not found in the form")
+	}
+
+	itemID, err := strconv.ParseUint(itemIDStr, 10, 64)
+	log.Infof("ItemID is %v", itemID)
 	if err != nil {
-		core.WriteResponse(c, errors.WithCode(code.ErrUnknown, err.Error()), nil)
+		core.WriteResponse(c, errors.WithCode(code.ErrBind, err.Error()), nil)
 		return
 	}
 
 	files := form.File["upload[]"]
+	var createdImages []*model.ItemImage // New slice for storing created images
 
 	for _, file := range files {
 		// Save file to local storage
@@ -64,7 +76,7 @@ func (ctrl *itemImageController) Create(c *gin.Context) {
 		// Upload file to S3 and get file URL
 		url, err := ctrl.storage.Upload(localPath)
 		if err != nil {
-			core.WriteResponse(c, errors.WithCode(code.ErrUnknown, err.Error()), nil) // code.ErrStorage
+			core.WriteResponse(c, errors.WithCode(code.ErrBind, err.Error()), nil) // code.ErrStorage
 			return
 		}
 
@@ -79,7 +91,7 @@ func (ctrl *itemImageController) Create(c *gin.Context) {
 
 		// Create a new item image
 		image := &model.ItemImage{
-			ID:       int(imageID),
+			ID:       imageID,
 			ItemID:   itemID,
 			ImageURL: url,
 		}
@@ -88,19 +100,21 @@ func (ctrl *itemImageController) Create(c *gin.Context) {
 			core.WriteResponse(c, errors.WithCode(code.ErrDatabase, err.Error()), nil)
 			return
 		}
+
+		// Add new image to the createdImages slice
+		createdImages = append(createdImages, image)
 	}
 
-	core.WriteResponse(c, nil, gin.H{
-		"message": "Files uploaded successfully",
-	})
+	core.WriteResponse(c, nil, createdImages)
 }
 
 // Implement other methods (Update, Delete, Get, List) with similar structure
 func (ctrl *itemImageController) Update(c *gin.Context) {
-	idStr := c.Param("id")
-	id, err := strconv.Atoi(idStr)
+	idStr := c.PostForm("id")
+	id, err := strconv.ParseUint(idStr, 10, 64)
+
 	if err != nil {
-		core.WriteResponse(c, errors.WithCode(code.ErrUnknown, err.Error()), nil)
+		core.WriteResponse(c, errors.WithCode(code.ErrBind, err.Error()), nil)
 		return
 	}
 
@@ -127,7 +141,7 @@ func (ctrl *itemImageController) Update(c *gin.Context) {
 	}
 
 	image := &model.ItemImage{
-		ID:       id,
+		ID:       uint64(id),
 		ImageURL: url,
 	}
 
@@ -143,8 +157,10 @@ func (ctrl *itemImageController) Update(c *gin.Context) {
 }
 
 func (ctrl *itemImageController) Delete(c *gin.Context) {
+
 	idStr := c.Param("id")
-	id, err := strconv.Atoi(idStr)
+	id, err := strconv.ParseUint(idStr, 10, 64)
+
 	if err != nil {
 		core.WriteResponse(c, errors.WithCode(code.ErrUnknown, err.Error()), nil)
 		return
@@ -175,7 +191,7 @@ func (ctrl *itemImageController) Delete(c *gin.Context) {
 
 func (ctrl *itemImageController) Get(c *gin.Context) {
 	idStr := c.Param("id")
-	id, err := strconv.Atoi(idStr)
+	id, err := strconv.ParseUint(idStr, 10, 64)
 	if err != nil {
 		core.WriteResponse(c, errors.WithCode(code.ErrUnknown, err.Error()), nil)
 		return
@@ -192,7 +208,7 @@ func (ctrl *itemImageController) Get(c *gin.Context) {
 
 func (ctrl *itemImageController) List(c *gin.Context) {
 	itemIDStr := c.Param("item_id")
-	itemID, err := strconv.Atoi(itemIDStr)
+	itemID, err := strconv.ParseUint(itemIDStr, 10, 64)
 	if err != nil {
 		core.WriteResponse(c, errors.WithCode(code.ErrUnknown, err.Error()), nil)
 		return

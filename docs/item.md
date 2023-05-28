@@ -14,6 +14,9 @@ curl -X GET -H'Content-Type: application/json' -H'Authorization: Bearer eyJhbGci
 
 curl -X GET -H'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJpYW0uYXBpLm1hcm1vdGVkdS5jb20iLCJleHAiOjE2ODQwNTY5OTcsImlkZW50aXR5IjoiYWRtaW4iLCJpc3MiOiJpYW0tYXBpc2VydmVyIiwib3JpZ19pYXQiOjE2ODM5NzA1OTcsInN1YiI6ImFkbWluIn0.14Yb0ay5Cnsd96UXPu_AodX9E-9NLNVd6j8t-cnYjkI' http://localhost:6000/data/tweets/finance/20230513/raw_0
 
+curl -X POST http://localhost:8883/v2/itemImages -H 'Content-Type: multipart/form-data' -H'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJpYW0uYXBpLm1hcm1vdGVkdS5jb20iLCJleHAiOjE2ODUzNDY2MjcsImlkZW50aXR5IjoiYWRtaW4iLCJpc3MiOiJpYW0tYXBpc2VydmVyIiwib3JpZ19pYXQiOjE2ODUyNjAyMjcsInN1YiI6ImFkbWluIn0.rqJOk9h97Skc-X8qNwX8hfSr6iMOSoC2YOIAlM_NnyQ' -F 'item_id=1657330406107648000' -F 'upload[]=@/Users/huanghaitao/Downloads/01.jpg'
+
+
 ```
 
 ## Instruction

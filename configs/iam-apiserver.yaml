@@ -85,7 +85,7 @@ feature:
 fileStorage:
   provider: s3
   s3:
-    accessKeyId: AKIAIOSFODNN7EXAMPLE
-    secretAccessKey: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
-    region: us-west-2
-    bucket: mybucket
+    accessKeyId: AKIA3EY6WWWFP7KJ3KVW
+    secretAccessKey: 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
+    region: us-east-1
+    bucket: iam-ecommerce-test-bucket
