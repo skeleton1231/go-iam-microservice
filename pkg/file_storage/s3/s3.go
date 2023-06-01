@@ -27,12 +27,38 @@ func (c *S3StorageConfig) GetStorageType() string {
 	return "s3"
 }
 
+// func NewS3Storage(config *S3StorageConfig) (*S3Storage, error) {
+// 	sess, err := session.NewSession(&aws.Config{
+// 		Region: aws.String(config.Region),
+// 		Credentials: credentials.NewStaticCredentials(
+// 			config.AccessKeyID, config.SecretAccessKey, ""),
+// 	})
+
+// 	if err != nil {
+// 		return nil, err
+// 	}
+
+//		return &S3Storage{
+//			Bucket:  config.Bucket,
+//			Session: sess,
+//		}, nil
+//	}
 func NewS3Storage(config *S3StorageConfig) (*S3Storage, error) {
-	sess, err := session.NewSession(&aws.Config{
-		Region: aws.String(config.Region),
-		Credentials: credentials.NewStaticCredentials(
-			config.AccessKeyID, config.SecretAccessKey, ""),
-	})
+	sessOpts := session.Options{
+		SharedConfigState: session.SharedConfigEnable,
+	}
+
+	if config.AccessKeyID != "" && config.SecretAccessKey != "" {
+		sessOpts.Config = aws.Config{
+			Credentials: credentials.NewStaticCredentials(config.AccessKeyID, config.SecretAccessKey, ""),
+		}
+	}
+
+	if config.Region != "" {
+		sessOpts.Config.Region = aws.String(config.Region)
+	}
+
+	sess, err := session.NewSessionWithOptions(sessOpts)
 
 	if err != nil {
 		return nil, err
