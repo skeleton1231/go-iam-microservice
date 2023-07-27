@@ -1,7 +1,3 @@
-# Go IAM E-Commerce Microservice
-
-Sure, here's how you can present the IAM system components in the context of your e-commerce application and the open-source libraries you've used:
-
 ### IAM System Architecture
 
 IAM (Identity and Access Management) system plays a crucial role in managing the identities and access permissions within our e-commerce application. It ensures that the right users have access to the right resources at the right times for the right reasons.
