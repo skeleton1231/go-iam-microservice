@@ -129,31 +129,3 @@ func FormatBaseName(basename string) string {
 
 	return basename
 }
-
-/*
-This Go code is a part of a CLI (Command Line Interface) application. It introduces a new concept: commands, which are sub-structures of a CLI application. Each command has a name (usage), description (desc), options, potentially sub-commands, and a run function.
-
-Commands in CLI applications can be considered as specific tasks or functions that the application can perform. They are a way to structure a program and its functionalities.
-
-Key functions and types in this code are:
-
-1. `Command`: A structure that represents a command in a CLI application.
-
-2. `CommandOption`: A function type used to apply optional settings to a command.
-
-3. `WithCommandOptions` and `WithCommandRunFunc`: Functions to set options and the run function for a command.
-
-4. `NewCommand`: A function to create a new command.
-
-5. `AddCommand` and `AddCommands`: Methods of the `Command` and `App` structure that allow adding one or multiple sub-commands to the current command or application.
-
-6. `cobraCommand`: A method of the `Command` structure that builds a cobra command (from the Cobra library, a widely used library for creating CLI applications in Go) from the command.
-
-7. `runCommand`: A method of the `Command` structure that is used as the run function for the built cobra command.
-
-8. `FormatBaseName`: A function that formats the basename (the name of the binary file of the application) according to the operating system.
-
-9. `RunCommandFunc`: A type that defines a function which will be called when the command is executed.
-
-This part of the code adds more structure and flexibility to the CLI application, allowing it to have multiple commands with their own options and run functions. This is a common design in many complex CLI applications, where different commands represent different functionalities of the application.
-*/

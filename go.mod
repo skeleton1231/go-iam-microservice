@@ -1,6 +1,6 @@
 module github.com/skeleton1231/go-iam-ecommerce-microservice
 
-go 1.19
+go 1.21
 
 require (
 	github.com/MakeNowJust/heredoc/v2 v2.0.1
