@@ -1,4 +1,4 @@
-// Copyright 2020 Lingfei Kong <colin404@foxmail.com>. All rights reserved.
+// Copyright 2023 Talhuang <talhuang1231@foxmail.com>. All rights reserved.
 // Use of this source code is governed by a MIT style
 // license that can be found in the LICENSE file.
 
@@ -16,7 +16,9 @@ import (
 )
 
 func main() {
-	rand.Seed(time.Now().UTC().UnixNano())
+
+	rand.New(rand.NewSource(time.Now().UTC().UnixNano()))
+	// rand.Seed(time.Now().UTC().UnixNano())
 	if len(os.Getenv("GOMAXPROCS")) == 0 {
 		runtime.GOMAXPROCS(runtime.NumCPU())
 	}

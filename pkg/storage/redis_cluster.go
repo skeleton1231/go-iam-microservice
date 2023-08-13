@@ -139,6 +139,11 @@ func clusterConnectionIsOpen(cluster RedisCluster) bool {
 func ConnectToRedis(ctx context.Context, config *Config) {
 	tick := time.NewTicker(time.Second)
 	defer tick.Stop()
+	/*
+		In the iteration, it seems to be doing two things for each RedisCluster:
+		Trying to connect using connectSingleton(v.IsCache, config).
+		Checking if the cluster connection is open with clusterConnectionIsOpen(v).
+	*/
 	c := []RedisCluster{
 		{}, {IsCache: true},
 	}
