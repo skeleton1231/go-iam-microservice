@@ -1,4 +1,4 @@
-// Copyright 2020 Lingfei Kong <colin404@foxmail.com>. All rights reserved.
+// Copyright 2020 Talhuang<talhuang1231@gmail.com>. All rights reserved.
 // Use of this source code is governed by a MIT style
 // license that can be found in the LICENSE file.
 
@@ -51,7 +51,7 @@ This can improve your R&D efficiency.`)
 		newUsageStr,
 	)
 
-	cmdTemplate = `// Copyright 2020 Lingfei Kong <colin404@foxmail.com>. All rights reserved.
+	cmdTemplate = `// Copyright 2020 Talhuang<talhuang1231@gmail.com>. All rights reserved.
 // Use of this source code is governed by a MIT style
 // license that can be found in the LICENSE file.
 
@@ -193,7 +193,7 @@ func (o *{{.CommandFunctionName}}Options) Run(args []string) error {
 }
 `
 
-	maincmdTemplate = `// Copyright 2020 Lingfei Kong <colin404@foxmail.com>. All rights reserved.
+	maincmdTemplate = `// Copyright 2020 Talhuang<talhuang1231@gmail.com>. All rights reserved.
 // Use of this source code is governed by a MIT style
 // license that can be found in the LICENSE file.
 
@@ -243,7 +243,7 @@ func NewCmd{{.CommandFunctionName}}(f cmdutil.Factory, ioStreams genericclioptio
 	return cmd
 }
 `
-	subcmd1Template = `// Copyright 2020 Lingfei Kong <colin404@foxmail.com>. All rights reserved.
+	subcmd1Template = `// Copyright 2020 Talhuang<talhuang1231@gmail.com>. All rights reserved.
 // Use of this source code is governed by a MIT style
 // license that can be found in the LICENSE file.
 
@@ -381,7 +381,7 @@ func (o *SubCmd1Options) Run(args []string) error {
 	return nil
 }
 `
-	subcmd2Template = `// Copyright 2020 Lingfei Kong <colin404@foxmail.com>. All rights reserved.
+	subcmd2Template = `// Copyright 2020 Talhuang<talhuang1231@gmail.com>. All rights reserved.
 // Use of this source code is governed by a MIT style
 // license that can be found in the LICENSE file.
 
