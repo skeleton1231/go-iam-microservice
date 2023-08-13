@@ -7,8 +7,8 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/marmotedu/iam/pkg/log"
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/authzserver/load"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/log"
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/storage"
 )
 

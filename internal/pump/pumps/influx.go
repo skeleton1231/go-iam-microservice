@@ -11,9 +11,9 @@ import (
 
 	"github.com/influxdata/influxdb/client/v2"
 	"github.com/marmotedu/component-base/pkg/json"
-	"github.com/marmotedu/iam/pkg/log"
 	"github.com/mitchellh/mapstructure"
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pump/analytics"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/log"
 )
 
 // InfluxPump defines an influx pump with influx specific options and common options.

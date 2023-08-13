@@ -8,8 +8,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/marmotedu/component-base/pkg/core"
 	metav1 "github.com/marmotedu/component-base/pkg/meta/v1"
-	"github.com/marmotedu/iam/pkg/log"
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/middleware"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/log"
 )
 
 // Delete deletes the policy by the policy identifier.

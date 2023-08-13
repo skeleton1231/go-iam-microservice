@@ -14,8 +14,8 @@ import (
 	"github.com/marmotedu/errors"
 	"github.com/mitchellh/mapstructure"
 
-	"github.com/marmotedu/iam/pkg/log"
 	genericoptions "github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pkg/options"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/log"
 )
 
 // ------------------- REDIS CLUSTER STORAGE MANAGER -------------------------------

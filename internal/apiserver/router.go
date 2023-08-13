@@ -16,8 +16,8 @@ import (
 	"github.com/spf13/viper"
 
 	// custom gin validators.
-	"github.com/marmotedu/iam/pkg/log"
 	_ "github.com/marmotedu/iam/pkg/validator"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/log"
 )
 
 func initRouter(g *gin.Engine) {

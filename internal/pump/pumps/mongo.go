@@ -25,7 +25,7 @@ import (
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pump/analytics"
 	"github.com/vinllen/mgo"
 
-	"github.com/marmotedu/iam/pkg/log"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/log"
 )
 
 // Define unit constant.

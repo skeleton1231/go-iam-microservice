@@ -16,7 +16,7 @@ import (
 	"github.com/mitchellh/mapstructure"
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pump/analytics"
 
-	"github.com/marmotedu/iam/pkg/log"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/log"
 )
 
 // CSVPump defines a csv pump with csv specific options and common options.

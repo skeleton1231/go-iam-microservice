@@ -15,7 +15,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pump/analytics"
 
-	"github.com/marmotedu/iam/pkg/log"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/log"
 )
 
 // PrometheusPump defines a prometheus pump with prometheus specific options and common options.

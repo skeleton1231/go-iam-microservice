@@ -7,7 +7,7 @@ package middleware
 import (
 	"github.com/gin-gonic/gin"
 
-	"github.com/marmotedu/iam/pkg/log"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/log"
 )
 
 // UsernameKey defines the key in gin context which represents the owner of the secret.

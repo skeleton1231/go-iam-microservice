@@ -19,7 +19,7 @@ import (
 	"github.com/segmentio/kafka-go/snappy"
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pump/analytics"
 
-	"github.com/marmotedu/iam/pkg/log"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/log"
 )
 
 // KafkaPump defines a kafka pump with kafka specific options and common options.

@@ -14,7 +14,7 @@ import (
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/watcher/options"
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/watcher/watcher"
 
-	"github.com/marmotedu/iam/pkg/log"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/log"
 )
 
 type taskWatcher struct {

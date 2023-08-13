@@ -17,7 +17,7 @@ import (
 	elastic "github.com/olivere/elastic/v7"
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/pump/analytics"
 
-	"github.com/marmotedu/iam/pkg/log"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/log"
 )
 
 // ElasticsearchPump defines an elasticsearch pump with elasticsearch specific options and common options.

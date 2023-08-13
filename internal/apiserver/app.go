@@ -6,10 +6,10 @@
 package apiserver
 
 import (
-	"github.com/marmotedu/iam/pkg/log"
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/config"
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/internal/apiserver/options"
 	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/app"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/log"
 )
 
 const commandDesc = `The IAM API server validates and configures data

@@ -2,4 +2,4 @@
 // Use of this source code is governed by a MIT style
 // license that can be found in the LICENSE file.
 
-package distribution // import "github.com/marmotedu/iam/pkg/log/distribution"
+package distribution // import "github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/log/distribution"

@@ -8,7 +8,7 @@ package server
 import (
 	"net/http"
 
-	"github.com/marmotedu/iam/pkg/log"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/log"
 )
 
 // ServeHealthCheck runs a http server used to provide a api to check pump health status.

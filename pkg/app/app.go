@@ -15,7 +15,7 @@ import (
 	"github.com/marmotedu/component-base/pkg/version"
 	"github.com/marmotedu/component-base/pkg/version/verflag"
 	"github.com/marmotedu/errors"
-	"github.com/marmotedu/iam/pkg/log"
+	"github.com/skeleton1231/go-iam-ecommerce-microservice/pkg/log"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
