@@ -1,4 +1,4 @@
-// Copyright 2020 Lingfei Kong <colin404@foxmail.com>. All rights reserved.
+// Copyright 2023 Talhuang <talhuang1231@gmail.com>. All rights reserved.
 // Use of this source code is governed by a MIT style
 // license that can be found in the LICENSE file.
 
@@ -95,7 +95,7 @@ func singleton(cache bool) redis.UniversalClient {
 }
 
 // nolint: unparam
-func connectSingleton(cache bool, config *Config) bool {
+func connectSingleton(ctx context.Context, cache bool, config *Config) bool {
 	if singleton(cache) == nil {
 		log.Debug("Connecting to redis cluster")
 		if cache {
@@ -116,9 +116,10 @@ type RedisCluster struct {
 	KeyPrefix string
 	HashKeys  bool
 	IsCache   bool
+	Ctx       context.Context
 }
 
-func clusterConnectionIsOpen(cluster RedisCluster) bool {
+func clusterConnectionIsOpen(ctx context.Context, cluster RedisCluster) bool {
 	c := singleton(cluster.IsCache)
 	testKey := "redis-test-" + uuid.Must(uuid.NewV4()).String()
 	if err := c.Set(testKey, "test", time.Second).Err(); err != nil {
@@ -145,15 +146,15 @@ func ConnectToRedis(ctx context.Context, config *Config) {
 		Checking if the cluster connection is open with clusterConnectionIsOpen(v).
 	*/
 	c := []RedisCluster{
-		{}, {IsCache: true},
+		{}, {IsCache: true, Ctx: context.Background()},
 	}
 	var ok bool
 	for _, v := range c {
-		if !connectSingleton(v.IsCache, config) {
+		if !connectSingleton(ctx, v.IsCache, config) {
 			break
 		}
 
-		if !clusterConnectionIsOpen(v) {
+		if !clusterConnectionIsOpen(ctx, v) {
 			redisUp.Store(false)
 
 			break
@@ -171,13 +172,13 @@ again:
 				continue
 			}
 			for _, v := range c {
-				if !connectSingleton(v.IsCache, config) {
+				if !connectSingleton(ctx, v.IsCache, config) {
 					redisUp.Store(false)
 
 					goto again
 				}
 
-				if !clusterConnectionIsOpen(v) {
+				if !clusterConnectionIsOpen(ctx, v) {
 					redisUp.Store(false)
 
 					goto again
