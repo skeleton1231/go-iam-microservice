@@ -129,6 +129,7 @@ require (
 	github.com/olivere/elastic/v7 v7.0.32
 	github.com/parnurzeal/gorequest v0.2.16
 	github.com/pelletier/go-toml/v2 v2.0.6 // indirect
+	github.com/redis/go-redis/v9 v9.1.0
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/segmentio/kafka-go v0.4.38
 	github.com/sirupsen/logrus v1.9.0
