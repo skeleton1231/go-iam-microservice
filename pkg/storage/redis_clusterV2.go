@@ -49,6 +49,56 @@ type RedisClusterV2 struct {
 }
 
 // ConnectToRedisV2 starts a go routine that periodically tries to connect to redis.
+// func ConnectToRedisV2(ctx context.Context, config *Config) {
+// 	tick := time.NewTicker(time.Second)
+// 	defer tick.Stop()
+
+// 	c := []RedisClusterV2{
+// 		{},
+// 		{IsCache: true, Ctx: context.Background()},
+// 	}
+// 	var ok bool
+// 	for _, v := range c {
+// 		if !connectSingletonV2(ctx, v.IsCache, config) {
+// 			break
+// 		}
+
+// 		if !clusterConnectionIsOpenV2(ctx, v) {
+// 			redisUp.Store(false)
+
+// 			break
+// 		}
+// 		ok = true
+// 	}
+// 	redisUp.Store(ok)
+
+// again:
+// 	for {
+// 		select {
+// 		case <-ctx.Done():
+// 			return
+// 		case <-tick.C:
+// 			if !shouldConnect() {
+// 				continue
+// 			}
+// 			for _, v := range c {
+// 				if !connectSingletonV2(ctx, v.IsCache, config) {
+// 					redisUp.Store(false)
+
+// 					goto again
+// 				}
+
+// 				if !clusterConnectionIsOpenV2(ctx, v) {
+// 					redisUp.Store(false)
+
+// 					goto again
+// 				}
+// 			}
+// 			redisUp.Store(true)
+// 		}
+// 	}
+// }
+
 func ConnectToRedisV2(ctx context.Context, config *Config) {
 	tick := time.NewTicker(time.Second)
 	defer tick.Stop()
@@ -57,46 +107,32 @@ func ConnectToRedisV2(ctx context.Context, config *Config) {
 		{},
 		{IsCache: true, Ctx: context.Background()},
 	}
-	var ok bool
-	for _, v := range c {
-		if !connectSingletonV2(ctx, v.IsCache, config) {
-			break
-		}
 
-		if !clusterConnectionIsOpenV2(ctx, v) {
-			redisUp.Store(false)
-
-			break
-		}
-		ok = true
-	}
-	redisUp.Store(ok)
-
-again:
 	for {
+		if shouldConnect() {
+			ok := establishConnection(ctx, c, config)
+			redisUp.Store(ok)
+		}
+
 		select {
 		case <-ctx.Done():
 			return
 		case <-tick.C:
-			if !shouldConnect() {
-				continue
-			}
-			for _, v := range c {
-				if !connectSingletonV2(ctx, v.IsCache, config) {
-					redisUp.Store(false)
-
-					goto again
-				}
-
-				if !clusterConnectionIsOpenV2(ctx, v) {
-					redisUp.Store(false)
-
-					goto again
-				}
-			}
-			redisUp.Store(true)
+			continue
 		}
 	}
+}
+
+func establishConnection(ctx context.Context, clusters []RedisClusterV2, config *Config) bool {
+	for _, v := range clusters {
+		if !connectSingletonV2(ctx, v.IsCache, config) {
+			return false
+		}
+		if !clusterConnectionIsOpenV2(ctx, v) {
+			return false
+		}
+	}
+	return true
 }
 
 func connectSingletonV2(ctx context.Context, isCache bool, config *Config) bool {
