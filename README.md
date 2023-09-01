@@ -43,15 +43,72 @@ These libraries and services play a significant role in our IAM system, enabling
 
 ## Features
 
-1. **Identity and Access Management (IAM)**: Securely manage user authentication and authorization, ensuring proper access control to various e-commerce functionalities.
-2. **User Management**: Add, update, delete, and retrieve user information, allowing easy administration of customer accounts.
-3. **Item Management**: Add, update, delete, and retrieve product information, allowing easy management of the product catalog.
-4. **Shopping Cart Management**: Enable users to add, remove, and update items in their shopping cart, providing a seamless shopping experience.
-5. **Logistics**: Manage and track shipping and delivery information, ensuring efficient fulfillment of customer orders.
-6. **Finance**: Handle payments, refunds, and other financial transactions, providing a secure and streamlined checkout process.
-7. **Advertisements**: Showcase featured products, promotions, and discounts to drive sales and customer engagement.
-8. **Inventory Management**: Monitor and manage stock levels in real-time, preventing stock-outs and ensuring product availability.
-9.  **Amazon API Integration**: Leverage the power of Amazon's APIs to expand the platform's capabilities, such as utilizing Amazon's fulfillment services or product recommendations.
+# Go IAM Microservice
+
+This project aims to create an IAM (Identity and Access Management) microservice powered by Go. Below is our development roadmap and the set of components/tools we aim to integrate.
+
+## Development Roadmap
+
+### 1. Service Discovery and Registration
+
+- **Tools**: Etcd
+- **Tasks**:
+  - Set up an Etcd cluster.
+  - Integrate the Go client with Etcd to register the microservice upon startup.
+
+### 2. Load Balancing
+
+- **Tools**: Envoy
+- **Tasks**:
+  - Install and configure Envoy as our edge proxy.
+  - Integrate Envoy's dynamic service discovery with Etcd to auto-route to our microservices.
+
+### 3. Remote Procedure Call
+
+- **Tools**: gRPC (go-grpc), HTTP/REST (gin)
+- **Tasks**:
+  - Set up gRPC services using go-grpc.
+  - Set up RESTful API endpoints using Gin.
+  - Utilize Envoy to transcode between gRPC and REST services.
+
+### 4. Configuration Management
+
+- **Tools**: Etcd, Kafka
+- **Tasks**:
+  - Use Etcd as a key-value store for configuration management.
+  - Employ Kafka as a message stream for handling asynchronous events and messages.
+
+### 5. Circuit Breakers
+
+- **Tools**: Hystrix
+- **Tasks**:
+  - Integrate Go versions of circuit breakers, such as gobreaker or hystrix-go.
+
+### 6. API Gateway
+
+- **Tools**: Kong
+- **Tasks**:
+  - Set up and configure Kong to manage the entry points to our microservices.
+  - Employ Kong's plugin system for functionalities like authentication, logging, rate-limiting, etc.
+
+### 7. Logging and Monitoring
+
+- **Tools**: Prometheus, Grafana
+- **Tasks**:
+  - Deploy Prometheus for metric collection across microservices.
+  - Connect Grafana to Prometheus to visualize these metrics through dashboards.
+
+### 8. Data Persistence
+
+- **Tools**: MySQL, Redis
+- **Tasks**:
+  - Integrate Go drivers/clients, such as go-sql-driver/mysql and go-redis/redis, to interact with MySQL and Redis respectively.
+
+### 9. Authentication
+
+- **Tools**: go-jwt
+- **Tasks**:
+  - Use go-jwt within Gin or gRPC middlewares to handle JWT-based authentication.
 
 ## Getting Started
 
