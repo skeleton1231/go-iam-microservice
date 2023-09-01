@@ -196,7 +196,7 @@ The Item API is a powerful tool for managing your e-commerce inventory. With its
 
 Detailed documentation for each feature can be found in the /docs directory of this repository. This includes information on how to interact with each microservice, API endpoints, and sample code.
 
-## To-Do List
+<!-- ## To-Do List
 
 Here are some features and improvements that we plan to implement in the future:
 
@@ -209,7 +209,7 @@ Here are some features and improvements that we plan to implement in the future:
 - [ ] Incorporate machine learning algorithms for personalized product recommendations.
 - [ ] Implement a fully responsive web-based admin panel for managing the e-commerce platform.
 - [ ] Add APIs for third-party integrations and plugins.
-- [ ] Improve performance and scalability with advanced caching and database optimization techniques.
+- [ ] Improve performance and scalability with advanced caching and database optimization techniques. -->
 
 Feel free to contribute to the project or suggest new features and improvements by creating an issue or submitting a pull request.
 
